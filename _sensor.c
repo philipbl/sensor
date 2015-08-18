@@ -1,8 +1,8 @@
 #include <Python.h>
 
 #include <stdio.h>
-// #include <wiringPi.h>
-// #include <maxdetect.h>
+#include <wiringPi.h>
+#include <maxdetect.h>
 #include <time.h>
 
 #define RHT03_PIN   7
