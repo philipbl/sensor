@@ -57,7 +57,7 @@ static void read_sensor_data() {
             fflush(stdout);
         }
         else {
-            write_sensor_data(temp, rh);
+            write_sensor_data(temp / 10.0, rh / 10.0);
             oldtemp = temp;
         }
 
