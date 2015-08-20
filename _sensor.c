@@ -28,11 +28,8 @@ static void read_sensor_data() {
 
     oldtemp = 500;
 
-    wiringPiSetup() ;
-    piHiPri(55) ;
-
-    while ((((int)time(NULL)) % CYCLETIME)) { delay(100); }
-    while (!(((int)time(NULL)) % CYCLETIME)) { delay(100); }
+    wiringPiSetup();
+    piHiPri(55);
 
     while (1) {
         // wait for an interval to start
