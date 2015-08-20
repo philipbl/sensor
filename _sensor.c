@@ -4,6 +4,7 @@
 #include <wiringPi.h>
 #include <maxdetect.h>
 #include <time.h>
+#include <signal.h>
 
 #define RHT03_PIN   7
 #define CYCLETIME   60
@@ -58,7 +59,7 @@ static void read_sensor_data() {
             printf("The sensor returned a bad reading!\n");
             fflush(stdout);
         }
-        else {
+        else if (running) {
             write_sensor_data(temp / 10.0, rh / 10.0);
             oldtemp = temp;
         }
