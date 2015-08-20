@@ -1,4 +1,5 @@
 import sensor
+import time
 from datetime import datetime
 from firebase import firebase
 
@@ -8,7 +9,7 @@ if __name__ == '__main__':
     def writer(temperature, humidity):
         measurement = {"temperature": temperature,
                        "humidity": humidity,
-                       "date": datetime.utcnow()}
+                       "date": time.time() * 1000}
 
         result = firebase.post('/measurements', measurement)
         print(result)
