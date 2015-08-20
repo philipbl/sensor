@@ -10,6 +10,11 @@
 #define RETRIES     3
 
 static PyObject *writer = NULL;
+static volatile int running = 1;
+
+void intHandler(int dummy) {
+    running = 0;
+}
 
 static void write_sensor_data(float temperature, float humidity) {
     PyObject *arglist;
@@ -31,15 +36,15 @@ static void read_sensor_data() {
     wiringPiSetup();
     piHiPri(55);
 
-    while (1) {
+    while (running) {
         // wait for an interval to start
-        while ((((int)time(NULL)) % CYCLETIME)) { delay(100); }
+        while ((((int)time(NULL)) % CYCLETIME) && running) { delay(100); }
 
         temp = rh = -1;
         int loop = RETRIES;
 
         int status = readRHT03(RHT03_PIN, &temp, &rh);
-        while ((!status) && loop--)
+        while ((!status) && loop-- && running)
         {
             printf("-Retry-");
             fflush(stdout);
@@ -59,12 +64,15 @@ static void read_sensor_data() {
         }
 
         // wait for the rest of that interval to finish
-        while (!(((int)time(NULL)) % CYCLETIME)) { delay(100); }
+        while (!(((int)time(NULL)) % CYCLETIME) && running) { delay(100); }
     }
 }
 
 static PyObject * sensor_read(PyObject *self, PyObject *args)
 {
+    // Register ctrl-C handler
+    signal(SIGINT, intHandler);
+
     // The callback from the caller
     // This gets called when new data has been read from the sensor
     PyObject *temp;
