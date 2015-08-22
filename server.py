@@ -51,7 +51,14 @@ def get_data():
     return df, _get_more_data
 
 
+data, get_more_data = get_data()
 
+print(data)
+
+time.sleep(130)
+
+data = get_more_data()
+print(data)
 
 
 if __name__ == '__main__':
