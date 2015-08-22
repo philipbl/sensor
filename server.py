@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from datetime import datetime
 from firebase import firebase
 import numpy as np
@@ -46,6 +46,49 @@ def get_data():
 
     return df, _get_more_data
 
+app = Flask(__name__)
+data, get_more_data = get_data()
+
+@app.route("/sensor/status")
+def status():
+    response = {"last_reading": data.ix[-1].name}
+
+    return jsonify(**response)
+
+
+@app.route("/sensor/summary")
+def summary():
+    # data = get_more_data()
+    # TODO: Get data for only a certain amount of time
+    response = {"mean_temp": data['temperature'].mean(),
+                "min_temp": data['temperature'].min(),
+                "max_temp": data['temperature'].max(),
+                "mean_humidity": data['humidity'].mean(),
+                "min_humidity": data['humidity'].min(),
+                "max_humidity": data['humidity'].max()}
+
+    return jsonify(**response)
+
+
+@app.route("/sensor/stats/<time_scale>")
+def average(time_scale):
+    """
+    Returns statistics (mean, median, 25 percentile, and 75 percentile)
+    about the given time scale. Time scale can be year, month, day, hour,
+    day of month, day of week and hour of day. Start and end parameters
+    can be provided to cut down on the data.
+    """
+
+    # Average day and night?
+
+    start = request.args.get('start')
+    end = request.args.get('end')
+
+
+# @app.route("/sensor/readings/<time_scale>")
+# def readings(time_scale):
+#     start = request.args.get('start')
+#     end = request.args.get('end')
 
 
 
