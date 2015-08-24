@@ -6,20 +6,15 @@ import pandas as pd
 import dateutil.parser
 import time
 
+
 def parse_time(time):
     if type(time) is str:
         return dateutil.parser.parse(time)
     else:
         return datetime.fromtimestamp(time / 1000)
 
-def get_data():
-    fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
-    last_get_data = int(time.time() * 1000)
 
-    print("getting new data")
-    results = fb.get('', 'measurements', params={'orderBy': '"date"'})
-    results = list(results.values())
-
+def format_data(results):
     # Set up data frame
     df = pd.DataFrame(results)
     df['date'] = df['date'].map(parse_time)
@@ -29,6 +24,17 @@ def get_data():
     # Convert C to F
     df['temperature'] = df['temperature'] * 9/5 + 32
 
+    return df
+
+
+def get_data():
+    fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
+    last_get_data = int(time.time() * 1000)
+
+    results = fb.get('', 'measurements', params={'orderBy': '"date"'})
+    results = list(results.values())
+    df = format_data(results)
+
     def _get_more_data():
         nonlocal df
         nonlocal last_get_data
@@ -36,15 +42,18 @@ def get_data():
         results = fb.get('', 'measurements', params={'orderBy': '"date"', 'startAt': last_get_data})
         results = list(results.values())
 
-        print(results)
+        if len(results) == 0:
+            return df
+        else:
+            new_df = format_data(results)
+            df = df.append(new_df)
 
-        # Add to data frame
-
-        last_get_data = int(time.time() * 1000)
-        return df
-
+            last_get_data = int(time.time() * 1000)
+            return df
 
     return df, _get_more_data
+
+
 
 app = Flask(__name__)
 data, get_more_data = get_data()
@@ -89,9 +98,6 @@ def average(time_scale):
 # def readings(time_scale):
 #     start = request.args.get('start')
 #     end = request.args.get('end')
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
