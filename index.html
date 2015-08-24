@@ -1,94 +1,146 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://underscorejs.org/underscore-min.js"></script>
-    <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-
-    <style type="text/css">
-
-    </style>
+  <title>Henry's Room</title>
+  <link rel="stylesheet" type="text/css" href="static/lib/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="static/lib/css/keen-dashboards.css" />
 </head>
+<body class="application">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Henry's Room</a>
+      </div>
+    </div>
+  </div>
 
-<body>
-    <canvas id="myChart"></canvas>
+  <div class="container-fluid">
 
-    <script type="text/javascript">
-        var jqXHR = $.ajax({
-            url: "http://127.0.0.1:5000/sensor/readings/minute",
-            dataType: "json"
-        });
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <div id="grid-1-1">
+              <img data-src="holder.js/100%x240/white/text:#grid-1-1">
+            </div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x240/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+    </div>
 
-        jqXHR.done(function(data) {
-            var times = _.keys(data);
-            var temps = _.values(data);
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+<!-- end of three -->
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            var chart_data = {
-                labels: times,
-                datasets: [
-                    {
-                        label: "Temperatures",
-                        fillColor: "rgba(151,187,205,0.2)",
-                        strokeColor: "rgba(151,187,205,1)",
-                        pointColor: "rgba(151,187,205,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: temps
-                    }
-                ]
-            };
 
-            Chart.defaults.global.responsive = true;
+    <hr>
 
-            var ctx = document.getElementById("myChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Line(chart_data, {
-                scaleShowGridLines : false,
-                pointDot : false,
-                bezierCurve: false,
-            });
-        });
+    <p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
 
+  </div>
 
+  <script type="text/javascript" src="static/lib/js/jquery.min.js"></script>
+  <script type="text/javascript" src="static/lib/js/bootstrap.min.js"></script>
 
+  <script type="text/javascript" src="static/lib/js/keen.min.js"></script>
 
-      //   var data = {
-      //       labels: times,
-      //       datasets: [
-      //           {
-      //               // label: "My First dataset",
-      //               // fillColor: "rgba(220,220,220,0.2)",
-      //               // strokeColor: "rgba(220,220,220,1)",
-      //               // pointColor: "rgba(220,220,220,1)",
-      //               // pointStrokeColor: "#fff",
-      //               // pointHighlightFill: "#fff",
-      //               // pointHighlightStroke: "rgba(220,220,220,1)",
-      //               data: temps
-      //           },
-      //           // {
-      //               // label: "My Second dataset",
-      //               // fillColor: "rgba(151,187,205,0.2)",
-      //               // strokeColor: "rgba(151,187,205,1)",
-      //               // pointColor: "rgba(151,187,205,1)",
-      //               // pointStrokeColor: "#fff",
-      //               // pointHighlightFill: "#fff",
-      //               // pointHighlightStroke: "rgba(151,187,205,1)",
-      //               // data: [28, 48, 40, 19, 86, 27, 90]
-      //           // }
-      //       ]
-      //   };
-
-      //   Chart.defaults.global.responsive = true;
-
-      //   var ctx = document.getElementById("myChart").getContext("2d");
-      //   var myNewChart = new Chart(ctx).Line(data, {
-      //     // responsive: true,
-      //     pointDotRadius: 5,
-      //   });
-      // });
-
-
-
-    </script>
 </body>
 </html>
