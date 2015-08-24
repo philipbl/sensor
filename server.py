@@ -98,10 +98,18 @@ def average(time_scale):
     end = request.args.get('end')
 
 
-# @app.route("/sensor/readings/<time_scale>")
-# def readings(time_scale):
-#     start = request.args.get('start')
-#     end = request.args.get('end')
+@app.route("/sensor/readings/<time_scale>")
+def readings(time_scale):
+    data = get_more_data()
+
+    start = request.args.get('start')
+    end = request.args.get('end')
+
+    # if time_scale == 'minute' or time_scale == 'min':
+    #     response = {"temperature": data[start:end]['temperature'],
+    #                 "humidity": data[start:end]['humidity']}
+
+    return data['temperature'].to_json()
 
 if __name__ == '__main__':
     app.run(debug=True)
