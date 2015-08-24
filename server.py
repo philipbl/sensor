@@ -60,6 +60,7 @@ data, get_more_data = get_data()
 
 @app.route("/sensor/status")
 def status():
+    data = get_more_data()
     response = {"last_reading": data.ix[-1].name}
 
     return jsonify(**response)
@@ -67,7 +68,7 @@ def status():
 
 @app.route("/sensor/summary")
 def summary():
-    # data = get_more_data()
+    data = get_more_data()
     # TODO: Get data for only a certain amount of time
     response = {"mean_temp": data['temperature'].mean(),
                 "min_temp": data['temperature'].min(),
@@ -89,6 +90,7 @@ def average(time_scale):
     """
 
     # Average day and night?
+    data = get_more_data()
 
     start = request.args.get('start')
     end = request.args.get('end')
