@@ -41,24 +41,20 @@ def get_data():
 
         results = fb.get('', 'measurements', params={'orderBy': '"date"', 'startAt': last_get_data})
         results = list(results.values())
-        new_df = format_data(results)
-        df = df.append(new_df)
 
-        last_get_data = int(time.time() * 1000)
-        return df
+        if len(results) == 0:
+            return df
+        else:
+            new_df = format_data(results)
+            df = df.append(new_df)
 
+            last_get_data = int(time.time() * 1000)
+            return df
 
     return df, _get_more_data
 
 
 data, get_more_data = get_data()
-
-print(data)
-
-time.sleep(130)
-
-data = get_more_data()
-print(data)
 
 
 if __name__ == '__main__':
