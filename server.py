@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from flask.ext.cors import CORS
 from datetime import datetime
 from firebase import firebase
 import numpy as np
@@ -56,6 +57,7 @@ def get_data():
 
 
 app = Flask(__name__)
+CORS(app)
 data, get_more_data = get_data()
 
 @app.route("/sensor/status")
