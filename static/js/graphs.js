@@ -1,9 +1,10 @@
 Chart.defaults.global.responsive = true;
+Chart.defaults.global.showTooltips = false;
 
 queue()
     .defer(d3.json, "http://127.0.0.1:5000/sensor/status")
     .defer(d3.json, "http://127.0.0.1:5000/sensor/summary")
-    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/minute")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/minute?duration=60")
     .await(makeGraphs);
 
 
@@ -36,41 +37,28 @@ function makeLastHourBox(last_hour) {
     var temp_data = last_hour.temperature;
     var humidity_data = last_hour.humidity;
 
-    var times = _.keys(temp_data);
-    var temps = _.values(temp_data);
-    var humidities = _.values(humidity_data);
+    var chart_data = [
+        {
+          label: 'My First dataset',
+          strokeColor: '#F16220',
+          pointColor: '#F16220',
+          pointStrokeColor: '#fff',
+          data: temp_data
+        },
+        {
+          label: 'My First dataset',
+          strokeColor: '#F16220',
+          pointColor: '#F16220',
+          pointStrokeColor: '#fff',
+          data: humidity_data
+        },
 
-    var chart_data = {
-        labels: times,
-        datasets: [
-            {
-                label: "Temperatures",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: temps
-            },
-            {
-                label: "Temperatures",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: humidities
-            }
-
-        ]
-    };
+      ];
 
     var ctx = document.getElementById("last-hour-chart").getContext("2d");
-    var myNewChart = new Chart(ctx).Line(chart_data, {
+    var myNewChart = new Chart(ctx).Scatter(chart_data, {
         scaleShowGridLines : false,
-        pointDot : false,
-        bezierCurve: false,
+        pointDot: false,
+        scaleType: "date",
     });
 }
