@@ -1,7 +1,12 @@
 .updated {
-    margin-left: 50px;
+/*    margin-left: 50px;
     font-size: 1.2rem;
-    float: right;
+    float: right;*/
+    opacity: 0;
+}
+
+.summary {
+    opacity: 0;
 }
 
 .temp-summary > .temp,

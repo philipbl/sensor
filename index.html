@@ -12,7 +12,7 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Henry's Room</a>
       </div>
-      <span class="updated">Last updated: XXX</span>
+      <span class="updated">Last updated: <span class="updated-time">XXX</span></span>
     </div>
   </div>
 
@@ -22,18 +22,20 @@
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Summary (12 hours)
+            Current
           </div>
           <div class="chart-stage">
-            <div class="temp-summary">
-              <span class="temp">75&deg;</span>
-              <span class="temp-high">82&deg;</span>
-              <span class="temp-low">70&deg;</span>
-            </div>
-            <div class="humidity-summary">
-              <span class="humidity">34%</span>
-              <span class="humidity-high">45%</span>
-              <span class="humidity-low">21%</span>
+            <div class="summary">
+              <div class="temp-summary">
+                <span class="temp">75&deg;</span>
+                <span class="temp-high">82&deg;</span>
+                <span class="temp-low">70&deg;</span>
+              </div>
+              <div class="humidity-summary">
+                <span class="humidity">34%</span>
+                <span class="humidity-high">45%</span>
+                <span class="humidity-low">21%</span>
+              </div>
             </div>
           </div>
         </div>
@@ -41,10 +43,10 @@
       <div class="col-sm-8">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Real-time
+            Last hour
           </div>
           <div class="chart-stage">
-            <canvas id="realtimeChart"></canvas>
+            <canvas id="last-hour-chart"></canvas>
           </div>
           <div class="chart-notes">
             Notes about this chart
@@ -57,7 +59,7 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Last 12 hours
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
@@ -70,7 +72,7 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Last 24 Hours
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
@@ -83,7 +85,7 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Last Week
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
@@ -97,7 +99,7 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Last Month
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
@@ -110,7 +112,7 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Last Year
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
@@ -123,7 +125,33 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            All Time
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Average By Time of Day
+          </div>
+          <div class="chart-stage">
+            <img data-src="holder.js/100%x120/white">
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Average By Day of Week
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
@@ -143,6 +171,8 @@
 
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
   <script type="text/javascript" src="static/lib/js/underscore.min.js"></script>
   <script type="text/javascript" src="static/lib/js/jquery.min.js"></script>
   <script type="text/javascript" src="static/lib/js/bootstrap.min.js"></script>
