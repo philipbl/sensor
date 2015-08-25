@@ -72,13 +72,19 @@ def status():
 def summary():
     data = get_more_data()
     # TODO: Get data for only a certain amount of time
-    response = {"mean_temp": data['temperature'].mean(),
-                "min_temp": data['temperature'].min(),
-                "max_temp": data['temperature'].max(),
-                "mean_humidity": data['humidity'].mean(),
-                "min_humidity": data['humidity'].min(),
-                "max_humidity": data['humidity'].max()}
-
+    response = {"temperature":
+                    {
+                        "mean": data['temperature'].mean(),
+                        "min": data['temperature'].min(),
+                        "max": data['temperature'].max()
+                    },
+                "humidity":
+                    {
+                        "mean": data['humidity'].mean(),
+                        "min": data['humidity'].min(),
+                        "max": data['humidity'].max()
+                    }
+                }
     return jsonify(**response)
 
 
