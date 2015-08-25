@@ -1,0 +1,16 @@
+.updated {
+    margin-left: 50px;
+    font-size: 1.2rem;
+    float: right;
+}
+
+.temp-summary > .temp,
+.humidity-summary > .humidity {
+    font-size: 6rem;
+}
+
+
+/* Charts */
+#realtimeChart {
+    padding: 0 10px;
+}

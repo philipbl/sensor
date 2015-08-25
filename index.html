@@ -2,8 +2,9 @@
 <html>
 <head>
   <title>Henry's Room</title>
-  <link rel="stylesheet" type="text/css" href="static/lib/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="static/lib/css/keen-dashboards.css" />
+  <link rel="stylesheet" type="text/css" href="static/lib/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="static/lib/css/keen-dashboards.css"/>
+  <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
 </head>
 <body class="application">
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -11,34 +12,39 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Henry's Room</a>
       </div>
+      <span class="updated">Last updated: XXX</span>
     </div>
   </div>
 
   <div class="container-fluid">
 
     <div class="row">
-      <div class="col-sm-8">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Cell Title
-          </div>
-          <div class="chart-stage">
-            <div id="grid-1-1">
-              <img data-src="holder.js/100%x240/white/text:#grid-1-1">
-            </div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Summary (12 hours)
           </div>
           <div class="chart-stage">
-            <img data-src="holder.js/100%x240/white">
+            <div class="temp-summary">
+              <span class="temp">75&deg;</span>
+              <span class="temp-high">82&deg;</span>
+              <span class="temp-low">70&deg;</span>
+            </div>
+            <div class="humidity-summary">
+              <span class="humidity">34%</span>
+              <span class="humidity-high">45%</span>
+              <span class="humidity-low">21%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Real-time
+          </div>
+          <div class="chart-stage">
+            <canvas id="realtimeChart"></canvas>
           </div>
           <div class="chart-notes">
             Notes about this chart
@@ -141,6 +147,8 @@
   <script type="text/javascript" src="static/lib/js/bootstrap.min.js"></script>
 
   <script type="text/javascript" src="static/lib/js/keen.min.js"></script>
+  <script type="text/javascript" src="static/lib/js/Chart.min.js"></script>
+  <script type="text/javascript" src="static/js/graphs.js"></script>
 
 </body>
 </html>
