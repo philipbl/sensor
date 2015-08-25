@@ -14,8 +14,8 @@ function makeGraphs(error, status, summary, last_hour) {
 }
 
 function makeUpdateText(status) {
-    console.log(status.last_reading);
-    $(".updated-time").text(status.last_reading);
+    var format = d3.time.format.utc("%I:%M %p");
+    $(".updated-time").text(format(new Date(status.last_reading)));
     $(".updated").css("opacity", "1");
 }
 
