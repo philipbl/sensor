@@ -108,11 +108,19 @@ def average(time_scale):
     print("Requesting time_scale: {}, interval: {}".format(time_scale, interval))
 
     if time_scale == "minute":
-        response = data.resample('{}T'.format(interval))
+        response = data.resample('{}T'.format(interval)).dropna()
     elif time_scale == "hour":
         response = data.resample('{}H'.format(interval))
 
-    return response.to_json()
+    return jsonify(**format_response(response))
+
+def format_response(data):
+    new_data = {}
+    for c in data:
+        new_data[c] = [{"x": index.value // 10**6, "y": value}
+                       for index, value in data[c].iteritems()]
+
+    return new_data
 
 if __name__ == '__main__':
     app.run(debug=True)
