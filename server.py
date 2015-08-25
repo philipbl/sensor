@@ -63,7 +63,7 @@ data, get_more_data = get_data()
 @app.route("/sensor/status")
 def status():
     data = get_more_data()
-    response = {"last_reading": data.ix[-1].name}
+    response = {"last_reading": data.ix[-1].name.value // 10**6}
 
     return jsonify(**response)
 
