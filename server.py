@@ -96,20 +96,17 @@ def average(time_scale):
 
     start = request.args.get('start')
     end = request.args.get('end')
+    interval = request.args.get('interval', 1)
+    duration = request.args.get('duration')
 
+    print("Requesting time_scale: {}, interval: {}".format(time_scale, interval))
 
-@app.route("/sensor/readings/<time_scale>")
-def readings(time_scale):
-    data = get_more_data()
+    if time_scale == "minute":
+        response = data.resample('{}T'.format(interval))
+    elif time_scale == "hour":
+        response = data.resample('{}H'.format(interval))
 
-    start = request.args.get('start')
-    end = request.args.get('end')
-
-    # if time_scale == 'minute' or time_scale == 'min':
-    #     response = {"temperature": data[start:end]['temperature'],
-    #                 "humidity": data[start:end]['humidity']}
-
-    return data['temperature'].to_json()
+    return response.to_json()
 
 if __name__ == '__main__':
     app.run(debug=True)
