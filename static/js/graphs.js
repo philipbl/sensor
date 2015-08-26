@@ -1,5 +1,5 @@
 Chart.defaults.global.responsive = true;
-Chart.defaults.global.showTooltips = false;
+// Chart.defaults.global.showTooltips = false;
 
 queue()
     .defer(d3.json, "http://127.0.0.1:5000/sensor/status")
@@ -10,10 +10,12 @@ queue()
     .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/hour?duration=168&interval=3")
     .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/hour?duration=720&interval=12")
     .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/day?duration=365&interval=1")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/average/day")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/average/week")
     .await(makeGraphs);
 
 
-function makeGraphs(error, status, summary, last_hour, twelve_hour, twentyfour_hour, week, month, year) {
+function makeGraphs(error, status, summary, last_hour, twelve_hour, twentyfour_hour, week, month, year, average_day, average_week) {
     makeUpdateText(status);
     makeSummaryBox(summary);
     makeLastHourBox(last_hour);
@@ -22,6 +24,8 @@ function makeGraphs(error, status, summary, last_hour, twelve_hour, twentyfour_h
     makeWeekBox(week);
     makeMonthBox(month);
     makeYearBox(year);
+    makeAverageDay(average_day);
+    makeAverageWeek(average_week);
 }
 
 function makeUpdateText(status) {
@@ -44,7 +48,7 @@ function makeSummaryBox(summary) {
 }
 
 function makeLastHourBox(data) {
-    makeChart(data, "last-hour-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "last-hour-chart", '#F16220', '#F16220', {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -53,7 +57,7 @@ function makeLastHourBox(data) {
 }
 
 function makeTwelveHourBox(data) {
-    makeChart(data, "twelve-hour-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "twelve-hour-chart", '#F16220', '#F16220', {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -62,7 +66,7 @@ function makeTwelveHourBox(data) {
 }
 
 function makeTwentyFourHourBox(data) {
-    makeChart(data, "twentyfour-hour-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "twentyfour-hour-chart", '#F16220', '#F16220', {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -71,7 +75,7 @@ function makeTwentyFourHourBox(data) {
 }
 
 function makeWeekBox(data) {
-    makeChart(data, "week-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "week-chart", '#F16220', '#F16220', {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -80,7 +84,7 @@ function makeWeekBox(data) {
 }
 
 function makeMonthBox(data) {
-    makeChart(data, "month-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "month-chart", '#F16220', '#F16220', {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -89,7 +93,8 @@ function makeMonthBox(data) {
 }
 
 function makeYearBox(data) {
-    makeChart(data, "year-chart", '#F16220', '#F16220', {
+    console.log(data);
+    makeScatterPlot(data, "year-chart", '#F16220', '#F16220', {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -97,7 +102,21 @@ function makeYearBox(data) {
     });
 }
 
-function makeChart(data, id, temp_color, humidity_color, chart_options) {
+function makeAverageDay(data) {
+    makeLineGraph(data, "average-day-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        pointDotRadius: 3,
+    });
+}
+
+function makeAverageWeek(data) {
+    makeLineGraph(data, "average-week-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        pointDotRadius: 3,
+    });
+}
+
+function makeScatterPlot(data, id, temp_color, humidity_color, chart_options) {
     var temp_data = data.temperature;
     var humidity_data = data.humidity;
 
@@ -121,4 +140,35 @@ function makeChart(data, id, temp_color, humidity_color, chart_options) {
 
     var ctx = document.getElementById(id).getContext("2d");
     var myNewChart = new Chart(ctx).Scatter(chart_data, chart_options);
+}
+
+function makeLineGraph(data, id, temp_color, humidity_color, chart_options) {
+   var temp_data = data.temperature;
+   var humidity_data = data.humidity;
+   var labels = data.labels;
+
+   var chart_data = {
+       labels: labels,
+       datasets: [
+           {
+               label: 'Temperature',
+               fillColor: "rgba(0,0,0,0)",
+               strokeColor: temp_color,
+               pointColor: temp_color,
+               pointStrokeColor: '#fff',
+               data: temp_data
+           },
+           {
+               label: 'Humidity',
+               fillColor: "rgba(0,0,0,0)",
+               strokeColor: humidity_color,
+               pointColor: humidity_color,
+               pointStrokeColor: '#fff',
+               data: humidity_data
+           }
+       ]
+   };
+
+   var ctx = document.getElementById(id).getContext("2d");
+   var myNewChart = new Chart(ctx).Line(chart_data, chart_options);
 }
