@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask.ext.cors import CORS
-from datetime import datetime
+from datetime import datetime, timedelta
 from firebase import firebase
 import numpy as np
 import pandas as pd
@@ -100,17 +100,25 @@ def average(time_scale):
     # Average day and night?
     data = get_more_data()
 
-    start = request.args.get('start')
-    end = request.args.get('end')
     interval = request.args.get('interval', 1)
-    duration = request.args.get('duration')
+    duration = int(request.args.get('duration'))
 
+
+    end = datetime.now()
     print("Requesting time_scale: {}, interval: {}".format(time_scale, interval))
+    # Resample with how='describe'
 
     if time_scale == "minute":
-        response = data.resample('{}T'.format(interval)).dropna()
+        start = end - timedelta(minutes=duration)
+        response = data.resample('{}T'.format(interval)).dropna()[start:end]
+
     elif time_scale == "hour":
-        response = data.resample('{}H'.format(interval))
+        start = end - timedelta(hours=duration)
+        response = data.resample('{}H'.format(interval)).dropna()[start:end]
+
+    elif time_scale == "day":
+        start = end - timedelta(days=duration)
+        response = data.resample('{}D'.format(interval)).dropna()[start:end]
 
     return jsonify(**format_response(response))
 
