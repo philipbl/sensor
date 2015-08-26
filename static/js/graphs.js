@@ -33,7 +33,7 @@ function makeUpdateText() {
 
 function makeSummaryBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/summary",
+        url: "http://127.0.0.1:5000/sensor/summary?duration=1440",
         dataType: "json"
     })
     .done(function (summary) {
