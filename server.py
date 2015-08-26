@@ -32,6 +32,7 @@ def get_data():
     # TODO: Don't make a request if it has been called less than 60 seconds
     fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
     last_get_data = int(time.time() * 1000)
+    last_minute = datetime.now().minute
 
     results = fb.get('', 'measurements', params={'orderBy': '"date"'})
     results = list(results.values())
@@ -40,6 +41,15 @@ def get_data():
     def _get_more_data():
         nonlocal df
         nonlocal last_get_data
+        nonlocal last_minute
+
+        current_minute = datetime.now().minute
+
+        # Only check for new data if there is a new minute
+        if current_minute == last_minute:
+            return df
+        else:
+            last_minute = current_minute
 
         results = fb.get('', 'measurements', params={'orderBy': '"date"', 'startAt': last_get_data})
         results = list(results.values())
@@ -106,8 +116,7 @@ def stats(time_scale):
     duration = int(request.args.get('duration'))
 
     end = datetime.now()
-    print("Requesting time_scale: {}, interval: {}".format(time_scale, interval))
-    # Resample with how='describe'
+    # TODO: Resample with how='describe'
 
     if time_scale == "minute":
         start = end - timedelta(minutes=duration)
