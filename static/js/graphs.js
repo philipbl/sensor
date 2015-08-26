@@ -1,6 +1,9 @@
 Chart.defaults.global.responsive = true;
 // Chart.defaults.global.showTooltips = false;
 
+temperature_color = "#F44336";
+humidity_color = "#2196F3";
+
 queue()
     .defer(d3.json, "http://127.0.0.1:5000/sensor/status")
     .defer(d3.json, "http://127.0.0.1:5000/sensor/summary")
@@ -48,7 +51,7 @@ function makeSummaryBox(summary) {
 }
 
 function makeLastHourBox(data) {
-    makeScatterPlot(data, "last-hour-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "last-hour-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -57,7 +60,7 @@ function makeLastHourBox(data) {
 }
 
 function makeTwelveHourBox(data) {
-    makeScatterPlot(data, "twelve-hour-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "twelve-hour-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -66,7 +69,7 @@ function makeTwelveHourBox(data) {
 }
 
 function makeTwentyFourHourBox(data) {
-    makeScatterPlot(data, "twentyfour-hour-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "twentyfour-hour-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -75,7 +78,7 @@ function makeTwentyFourHourBox(data) {
 }
 
 function makeWeekBox(data) {
-    makeScatterPlot(data, "week-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "week-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -84,7 +87,7 @@ function makeWeekBox(data) {
 }
 
 function makeMonthBox(data) {
-    makeScatterPlot(data, "month-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "month-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -94,7 +97,7 @@ function makeMonthBox(data) {
 
 function makeYearBox(data) {
     console.log(data);
-    makeScatterPlot(data, "year-chart", '#F16220', '#F16220', {
+    makeScatterPlot(data, "year-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         // pointDot: false,
         pointDotRadius: 3,
@@ -103,14 +106,14 @@ function makeYearBox(data) {
 }
 
 function makeAverageDay(data) {
-    makeLineGraph(data, "average-day-chart", '#F16220', '#F16220', {
+    makeLineGraph(data, "average-day-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         pointDotRadius: 3,
     });
 }
 
 function makeAverageWeek(data) {
-    makeLineGraph(data, "average-week-chart", '#F16220', '#F16220', {
+    makeLineGraph(data, "average-week-chart", temperature_color, humidity_color, {
         scaleShowGridLines : false,
         pointDotRadius: 3,
     });
