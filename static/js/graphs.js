@@ -5,13 +5,23 @@ queue()
     .defer(d3.json, "http://127.0.0.1:5000/sensor/status")
     .defer(d3.json, "http://127.0.0.1:5000/sensor/summary")
     .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/minute?duration=60")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/hour?duration=12")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/hour?duration=24")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/hour?duration=168&interval=3")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/hour?duration=720&interval=12")
+    .defer(d3.json, "http://127.0.0.1:5000/sensor/stats/day?duration=365&interval=1")
     .await(makeGraphs);
 
 
-function makeGraphs(error, status, summary, last_hour) {
+function makeGraphs(error, status, summary, last_hour, twelve_hour, twentyfour_hour, week, month, year) {
     makeUpdateText(status);
     makeSummaryBox(summary);
     makeLastHourBox(last_hour);
+    makeTwelveHourBox(twelve_hour);
+    makeTwentyFourHourBox(twentyfour_hour);
+    makeWeekBox(week);
+    makeMonthBox(month);
+    makeYearBox(year);
 }
 
 function makeUpdateText(status) {
@@ -33,32 +43,82 @@ function makeSummaryBox(summary) {
     $(".summary").css("opacity", "1");
 }
 
-function makeLastHourBox(last_hour) {
-    var temp_data = last_hour.temperature;
-    var humidity_data = last_hour.humidity;
+function makeLastHourBox(data) {
+    makeChart(data, "last-hour-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        // pointDot: false,
+        pointDotRadius: 3,
+        scaleType: "date",
+    });
+}
+
+function makeTwelveHourBox(data) {
+    makeChart(data, "twelve-hour-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        // pointDot: false,
+        pointDotRadius: 3,
+        scaleType: "date",
+    });
+}
+
+function makeTwentyFourHourBox(data) {
+    makeChart(data, "twentyfour-hour-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        // pointDot: false,
+        pointDotRadius: 3,
+        scaleType: "date",
+    });
+}
+
+function makeWeekBox(data) {
+    makeChart(data, "week-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        // pointDot: false,
+        pointDotRadius: 3,
+        scaleType: "date",
+    });
+}
+
+function makeMonthBox(data) {
+    makeChart(data, "month-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        // pointDot: false,
+        pointDotRadius: 3,
+        scaleType: "date",
+    });
+}
+
+function makeYearBox(data) {
+    makeChart(data, "year-chart", '#F16220', '#F16220', {
+        scaleShowGridLines : false,
+        // pointDot: false,
+        pointDotRadius: 3,
+        scaleType: "date",
+    });
+}
+
+function makeChart(data, id, temp_color, humidity_color, chart_options) {
+    var temp_data = data.temperature;
+    var humidity_data = data.humidity;
 
     var chart_data = [
         {
-          label: 'My First dataset',
-          strokeColor: '#F16220',
-          pointColor: '#F16220',
+          label: 'Temperature',
+          strokeColor: temp_color,
+          pointColor: temp_color,
           pointStrokeColor: '#fff',
           data: temp_data
         },
         {
-          label: 'My First dataset',
-          strokeColor: '#F16220',
-          pointColor: '#F16220',
+          label: 'Humidity',
+          strokeColor: humidity_color,
+          pointColor: humidity_color,
           pointStrokeColor: '#fff',
           data: humidity_data
         },
 
       ];
 
-    var ctx = document.getElementById("last-hour-chart").getContext("2d");
-    var myNewChart = new Chart(ctx).Scatter(chart_data, {
-        scaleShowGridLines : false,
-        pointDot: false,
-        scaleType: "date",
-    });
+    var ctx = document.getElementById(id).getContext("2d");
+    var myNewChart = new Chart(ctx).Scatter(chart_data, chart_options);
 }
