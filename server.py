@@ -29,6 +29,7 @@ def format_data(results):
 
 
 def get_data():
+    # TODO: Don't make a request if it has been called less than 60 seconds
     fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
     last_get_data = int(time.time() * 1000)
 
@@ -54,6 +55,14 @@ def get_data():
 
     return df, _get_more_data
 
+
+def format_response(data, x_func, y_func):
+    new_data = {}
+    for c in data:
+        new_data[c] = [{"x": x_func(index), "y": y_func(value)}
+                       for index, value in data[c].iteritems()]
+
+    return new_data
 
 
 app = Flask(__name__)
@@ -89,20 +98,12 @@ def summary():
 
 
 @app.route("/sensor/stats/<time_scale>")
-def average(time_scale):
-    """
-    Returns statistics (mean, median, 25 percentile, and 75 percentile)
-    about the given time scale. Time scale can be year, month, day, hour,
-    day of month, day of week and hour of day. Start and end parameters
-    can be provided to cut down on the data.
-    """
-
-    # Average day and night?
+def stats(time_scale):
     data = get_more_data()
 
+    # TODO: Handle all time?
     interval = request.args.get('interval', 1)
     duration = int(request.args.get('duration'))
-
 
     end = datetime.now()
     print("Requesting time_scale: {}, interval: {}".format(time_scale, interval))
@@ -120,15 +121,32 @@ def average(time_scale):
         start = end - timedelta(days=duration)
         response = data.resample('{}D'.format(interval)).dropna()[start:end]
 
-    return jsonify(**format_response(response))
+    # TODO: Return error if not a valid time scale
 
-def format_response(data):
-    new_data = {}
-    for c in data:
-        new_data[c] = [{"x": index.value // 10**6, "y": value}
-                       for index, value in data[c].iteritems()]
+    return jsonify(**format_response(response,
+                                     lambda x: x.value // 10**6,
+                                     lambda y: y))
 
-    return new_data
+
+@app.route("/sensor/average/<time_scale>")
+def average(time_scale):
+    data = get_more_data()
+
+    if time_scale == "day":
+        response = data.groupby(lambda x: datetime(1900, 1, 1, x.hour)).mean()
+        format_str = "%I:%M %p"
+
+    elif time_scale == "week":
+        response = data.groupby(lambda x: datetime(1900, 1, x.weekday() + 1)).mean()
+        format_str = "%A"
+
+    new_response = {"labels": [x.strftime(format_str) for x in response.index]}
+    for c in response:
+        new_response[c] = list(response[c])
+
+    return jsonify(**new_response)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
