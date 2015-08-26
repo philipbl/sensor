@@ -29,7 +29,6 @@ def format_data(results):
 
 
 def get_data():
-    # TODO: Don't make a request if it has been called less than 60 seconds
     fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
     last_get_data = int(time.time() * 1000)
     last_minute = datetime.now().minute
@@ -90,20 +89,12 @@ def status():
 @app.route("/sensor/summary")
 def summary():
     data = get_more_data()
-    # TODO: Get data for only a certain amount of time
-    response = {"temperature":
-                    {
-                        "mean": data['temperature'].mean(),
-                        "min": data['temperature'].min(),
-                        "max": data['temperature'].max()
-                    },
-                "humidity":
-                    {
-                        "mean": data['humidity'].mean(),
-                        "min": data['humidity'].min(),
-                        "max": data['humidity'].max()
-                    }
-                }
+
+    duration = int(request.args.get('duration'))
+    end = datetime.now()
+    start = end - timedelta(minutes=duration)
+
+    response = {c: dict(data[start:end][c].describe()) for c in data}
     return jsonify(**response)
 
 
@@ -156,6 +147,7 @@ def average(time_scale):
     return jsonify(**new_response)
 
 
+# TODO: Why do pandas graphs look different?
 
 if __name__ == '__main__':
     app.run(debug=True)
