@@ -84,7 +84,7 @@
             Last Week
           </div>
           <div class="chart-stage">
-            <canvas id="week-hour-chart"></canvas>
+            <canvas id="week-chart"></canvas>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
             Last Month
           </div>
           <div class="chart-stage">
-            <canvas id="month-hour-chart"></canvas>
+            <canvas id="month-chart"></canvas>
           </div>
         </div>
       </div>
@@ -106,22 +106,12 @@
             Last Year
           </div>
           <div class="chart-stage">
-            <canvas id="year-hour-chart"></canvas>
+            <canvas id="year-chart"></canvas>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            All Time
-          </div>
-          <div class="chart-stage">
-            <canvas id="all-hour-chart"></canvas>
-          </div>
-        </div>
-      </div>
       <div class="col-md-6">
         <div class="chart-wrapper">
           <div class="chart-title">
@@ -132,8 +122,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
       <div class="col-md-6">
         <div class="chart-wrapper">
           <div class="chart-title">
@@ -145,14 +133,22 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            All Time
+          </div>
+          <div class="chart-stage">
+            <canvas id="all-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-
-    <hr>
-
-    <p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
-
-  </div>
+  <hr>
+  <p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
