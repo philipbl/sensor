@@ -66,7 +66,7 @@ function makeLastHourBox() {
 
 function makeTwelveHourBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/hour?duration=12",
+        url: "http://127.0.0.1:5000/sensor/stats/minute?duration=720&interval=15",
         dataType: "json"
     })
     .done(function (data) {
@@ -80,7 +80,7 @@ function makeTwelveHourBox() {
 
 function makeTwentyFourHourBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/hour?duration=24",
+        url: "http://127.0.0.1:5000/sensor/stats/minute?duration=1440&interval=30",
         dataType: "json"
     })
     .done(function (data) {
