@@ -52,7 +52,7 @@ function makeSummaryBox() {
 
 function makeLastHourBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/minute?duration=60",
+        url: "http://127.0.0.1:5000/sensor/stats/minutes?duration=60",
         dataType: "json"
     })
     .done(function (data) {
@@ -66,7 +66,7 @@ function makeLastHourBox() {
 
 function makeTwelveHourBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/minute?duration=720&interval=15",
+        url: "http://127.0.0.1:5000/sensor/stats/minutes?duration=720&interval=15",
         dataType: "json"
     })
     .done(function (data) {
@@ -80,7 +80,7 @@ function makeTwelveHourBox() {
 
 function makeTwentyFourHourBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/minute?duration=1440&interval=30",
+        url: "http://127.0.0.1:5000/sensor/stats/minutes?duration=1440&interval=30",
         dataType: "json"
     })
     .done(function (data) {
@@ -94,7 +94,7 @@ function makeTwentyFourHourBox() {
 
 function makeWeekBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/hour?duration=168&interval=3",
+        url: "http://127.0.0.1:5000/sensor/stats/hours?duration=168&interval=3",
         dataType: "json"
     })
     .done(function (data) {
@@ -108,7 +108,7 @@ function makeWeekBox() {
 
 function makeMonthBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/hour?duration=720&interval=12",
+        url: "http://127.0.0.1:5000/sensor/stats/hours?duration=720&interval=12",
         dataType: "json"
     })
     .done(function (data) {
@@ -122,7 +122,7 @@ function makeMonthBox() {
 
 function makeYearBox() {
     $.ajax({
-        url: "http://127.0.0.1:5000/sensor/stats/day?duration=365&interval=1",
+        url: "http://127.0.0.1:5000/sensor/stats/days?duration=365&interval=1",
         dataType: "json"
     })
     .done(function (data) {
