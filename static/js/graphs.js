@@ -39,11 +39,11 @@ function makeSummaryBox() {
     })
     .done(function (summary) {
         var format = d3.format(".1f");
-        $(".temp-summary .temp").text(format(summary.temperature.mean) + "°");
+        $(".temp-summary .temp").text(format(summary.temperature.current) + "°");
         $(".temp-summary .temp-high").text(format(summary.temperature.max) + "°");
         $(".temp-summary .temp-low").text(format(summary.temperature.min) + "°");
 
-        $(".humidity-summary .humidity").text(format(summary.humidity.mean) + "%");
+        $(".humidity-summary .humidity").text(format(summary.humidity.current) + "%");
         $(".humidity-summary .humidity-high").text(format(summary.humidity.max) + "%");
         $(".humidity-summary .humidity-low").text(format(summary.humidity.min) + "%");
 

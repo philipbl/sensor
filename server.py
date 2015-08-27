@@ -98,7 +98,12 @@ def summary():
     end = datetime.now()
     start = end - timedelta(minutes=duration)
 
-    response = {c: dict(data[start:end][c].describe()) for c in data}
+    response = {}
+    for c in data:
+        current = data[-2:-1]
+        current.index = ["current"]
+        response[c] = dict(data[start:end].describe().append(current)[c])
+
     return jsonify(**response)
 
 
