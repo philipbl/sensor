@@ -1,7 +1,12 @@
+.location {
+    float: left;
+}
+
+.updated-container {
+    float: right;
+}
+
 .updated {
-/*    margin-left: 50px;
-    font-size: 1.2rem;
-    float: right;*/
     opacity: 0;
 }
 
@@ -14,8 +19,3 @@
     font-size: 6rem;
 }
 
-
-/* Charts */
-#realtimeChart {
-    padding: 0 10px;
-}
