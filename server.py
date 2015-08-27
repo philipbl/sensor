@@ -101,25 +101,19 @@ def summary():
 @app.route("/sensor/stats/<time_scale>")
 def stats(time_scale):
     data = get_more_data()
+    time_str = {'minutes': 'T', 'hours': 'H', 'days': 'D'}
 
-    # TODO: Handle all time?
     interval = request.args.get('interval', 1)
-    duration = int(request.args.get('duration'))
+    duration = int(request.args.get('duration', 0))
 
     end = datetime.now()
-    # TODO: Resample with how='describe'
+    start = end - timedelta(**{time_scale: duration})
 
-    if time_scale == "minute":
-        start = end - timedelta(minutes=duration)
-        response = data.resample('{}T'.format(interval)).dropna()[start:end]
+    if start == end:
+        start = None
 
-    elif time_scale == "hour":
-        start = end - timedelta(hours=duration)
-        response = data.resample('{}H'.format(interval)).dropna()[start:end]
-
-    elif time_scale == "day":
-        start = end - timedelta(days=duration)
-        response = data.resample('{}D'.format(interval)).dropna()[start:end]
+    resample_str = '{}{}'.format(interval, time_str[time_scale])
+    response = data.resample(resample_str).dropna()[start:end]
 
     # TODO: Return error if not a valid time scale
 
@@ -146,8 +140,6 @@ def average(time_scale):
 
     return jsonify(**new_response)
 
-
-# TODO: Why do pandas graphs look different?
 
 if __name__ == '__main__':
     app.run(debug=True)
