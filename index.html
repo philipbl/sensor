@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Henry's Room</title>
+  <link rel="stylesheet" type="text/css" href="static/lib/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="static/lib/css/keen-dashboards.css"/>
+  <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+</head>
+<body class="application">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header location">
+        <a class="navbar-brand" href="#">Henry's Room</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right updated-container">
+        <li class="updated">
+          <a href="#">Last updated: <span class="updated-time"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Current
+          </div>
+          <div class="chart-stage">
+            <div class="summary">
+              <div class="temp-summary">
+                <span class="temp">75&deg;</span>
+                <span class="temp-high">82&deg;</span>
+                <span class="temp-low">70&deg;</span>
+              </div>
+              <div class="humidity-summary">
+                <span class="humidity">34%</span>
+                <span class="humidity-high">45%</span>
+                <span class="humidity-low">21%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Last hour
+          </div>
+          <div class="chart-stage">
+            <canvas id="last-hour-chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Last 12 hours
+          </div>
+          <div class="chart-stage">
+            <canvas id="twelve-hour-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Last 24 Hours
+          </div>
+          <div class="chart-stage">
+            <canvas id="twentyfour-hour-chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Last Week
+          </div>
+          <div class="chart-stage">
+            <canvas id="week-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Last Month
+          </div>
+          <div class="chart-stage">
+            <canvas id="month-chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Last Year
+          </div>
+          <div class="chart-stage">
+            <canvas id="year-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Average By Time of Day
+          </div>
+          <div class="chart-stage">
+            <canvas id="average-day-chart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Average By Day of Week
+          </div>
+          <div class="chart-stage">
+            <canvas id="average-week-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            All Time
+          </div>
+          <div class="chart-stage">
+            <canvas id="all-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="static/lib/js/jquery.min.js"></script>
+  <script type="text/javascript" src="static/lib/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="static/lib/js/keen.min.js"></script>
+  <script type="text/javascript" src="static/lib/js/Chart.min.js"></script>
+  <script type="text/javascript" src="static/lib/js/Chart.Scatter.min.js"></script>
+  <script type="text/javascript" src="static/js/graphs.js"></script>
+
+</body>
+</html>

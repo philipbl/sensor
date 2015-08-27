@@ -1,0 +1,21 @@
+.location {
+    float: left;
+}
+
+.updated-container {
+    float: right;
+}
+
+.updated {
+    opacity: 0;
+}
+
+.summary {
+    opacity: 0;
+}
+
+.temp-summary > .temp,
+.humidity-summary > .humidity {
+    font-size: 6rem;
+}
+
