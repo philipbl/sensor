@@ -39,13 +39,13 @@ function makeSummaryBox() {
     })
     .done(function (summary) {
         var format = d3.format(".1f");
-        $(".temp-summary .temp").text(format(summary.temperature.mean));
-        $(".temp-summary .temp-high").text(format(summary.temperature.max));
-        $(".temp-summary .temp-low").text(format(summary.temperature.min));
+        $(".temp-summary .temp").text(format(summary.temperature.mean) + "°");
+        $(".temp-summary .temp-high").text(format(summary.temperature.max) + "°");
+        $(".temp-summary .temp-low").text(format(summary.temperature.min) + "°");
 
-        $(".humidity-summary .humidity").text(format(summary.humidity.mean));
-        $(".humidity-summary .humidity-high").text(format(summary.humidity.max));
-        $(".humidity-summary .humidity-low").text(format(summary.humidity.min));
+        $(".humidity-summary .humidity").text(format(summary.humidity.mean) + "%");
+        $(".humidity-summary .humidity-high").text(format(summary.humidity.max) + "%");
+        $(".humidity-summary .humidity-low").text(format(summary.humidity.min) + "%");
 
         $(".summary").css("opacity", "1");
     });
@@ -58,7 +58,8 @@ function makeLastHourBox() {
     })
     .done(function (data) {
         makeScatterPlot(data, "last-hour-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
         });
@@ -72,7 +73,8 @@ function makeTwelveHourBox() {
     })
     .done(function (data) {
         makeScatterPlot(data, "twelve-hour-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
         });
@@ -86,7 +88,8 @@ function makeTwentyFourHourBox() {
     })
     .done(function (data) {
         makeScatterPlot(data, "twentyfour-hour-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
         });
@@ -100,7 +103,8 @@ function makeWeekBox() {
     })
     .done(function (data) {
         makeScatterPlot(data, "week-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
         });
@@ -114,7 +118,8 @@ function makeMonthBox() {
     })
     .done(function (data) {
         makeScatterPlot(data, "month-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
         });
@@ -128,7 +133,8 @@ function makeYearBox() {
     })
     .done(function (data) {
         makeScatterPlot(data, "year-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
         });
@@ -142,7 +148,8 @@ function makeAverageDay() {
     })
     .done(function (data) {
         makeLineGraph(data, "average-day-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             pointDot : false,
         });
     });
@@ -155,7 +162,8 @@ function makeAverageWeek() {
     })
     .done(function (data) {
         makeLineGraph(data, "average-week-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             pointDot : false,
         });
     });
@@ -168,7 +176,8 @@ function makeAllChart() {
     })
     .done(function (data) {
         makeScatterPlot(data, "all-chart", temperature_color, humidity_color, {
-            scaleShowGridLines : false,
+            // scaleShowGridLines : false,
+            scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
             bezierCurve : false,
