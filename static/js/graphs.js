@@ -17,6 +17,7 @@ function makeGraphs() {
     makeYearBox();
     makeAverageDay();
     makeAverageWeek();
+    makeAllChart();
 }
 
 function makeUpdateText() {
@@ -159,6 +160,22 @@ function makeAverageWeek() {
         });
     });
 }
+
+function makeAllChart() {
+    $.ajax({
+        url: "http://127.0.0.1:5000/sensor/stats/days",
+        dataType: "json"
+    })
+    .done(function (data) {
+        makeScatterPlot(data, "all-chart", temperature_color, humidity_color, {
+            scaleShowGridLines : false,
+            scaleType: "date",
+            pointDot : false,
+            bezierCurve : false,
+        });
+    });
+}
+
 
 function makeScatterPlot(data, id, temp_color, humidity_color, chart_options) {
     var temp_data = data.temperature;
