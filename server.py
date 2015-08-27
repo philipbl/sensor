@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask.ext.cors import CORS
 from datetime import datetime, timedelta
 from firebase import firebase
@@ -77,6 +77,10 @@ def format_response(data, x_func, y_func):
 app = Flask(__name__)
 CORS(app)
 data, get_more_data = get_data()
+
+@app.route("/")
+def main():
+    return render_template("index.html")
 
 @app.route("/sensor/status")
 def status():
