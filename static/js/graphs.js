@@ -58,8 +58,8 @@ function makeLastHourBox() {
     .done(function (data) {
         makeScatterPlot(data, "last-hour-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            pointDotRadius: 3,
             scaleType: "date",
+            pointDot : false,
         });
     });
 }
@@ -72,8 +72,8 @@ function makeTwelveHourBox() {
     .done(function (data) {
         makeScatterPlot(data, "twelve-hour-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            pointDotRadius: 3,
             scaleType: "date",
+            pointDot : false,
         });
     });
 }
@@ -86,8 +86,8 @@ function makeTwentyFourHourBox() {
     .done(function (data) {
         makeScatterPlot(data, "twentyfour-hour-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            pointDotRadius: 3,
             scaleType: "date",
+            pointDot : false,
         });
     });
 }
@@ -100,9 +100,8 @@ function makeWeekBox() {
     .done(function (data) {
         makeScatterPlot(data, "week-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            // pointDot: false,
-            pointDotRadius: 3,
             scaleType: "date",
+            pointDot : false,
         });
     });
 }
@@ -115,9 +114,8 @@ function makeMonthBox() {
     .done(function (data) {
         makeScatterPlot(data, "month-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            // pointDot: false,
-            pointDotRadius: 3,
             scaleType: "date",
+            pointDot : false,
         });
     });
 }
@@ -130,8 +128,8 @@ function makeYearBox() {
     .done(function (data) {
         makeScatterPlot(data, "year-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            pointDotRadius: 3,
             scaleType: "date",
+            pointDot : false,
         });
     });
 }
@@ -144,7 +142,7 @@ function makeAverageDay() {
     .done(function (data) {
         makeLineGraph(data, "average-day-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            pointDotRadius: 3,
+            pointDot : false,
         });
     });
 }
@@ -157,7 +155,7 @@ function makeAverageWeek() {
     .done(function (data) {
         makeLineGraph(data, "average-week-chart", temperature_color, humidity_color, {
             scaleShowGridLines : false,
-            pointDotRadius: 3,
+            pointDot : false,
         });
     });
 }
