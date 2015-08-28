@@ -5,6 +5,7 @@ temperature_color = "#F44336";
 humidity_color = "#2196F3";
 
 makeGraphs();
+setTimeout(updateGraphs, 60000);
 
 function makeGraphs() {
     makeUpdateText();
@@ -18,6 +19,13 @@ function makeGraphs() {
     makeAverageDay();
     makeAverageWeek();
     makeAllChart();
+}
+
+function updateGraphs() {
+    makeUpdateText();
+    makeSummaryBox();
+
+    setTimeout(updateGraphs, 60000);
 }
 
 function makeUpdateText() {
