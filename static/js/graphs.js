@@ -26,7 +26,7 @@ function makeUpdateText() {
         dataType: "json"
     })
     .done(function (status) {
-        var format = d3.time.format.utc("%I:%M %p");
+        var format = d3.time.format("%I:%M %p");
         $(".updated-time").text(format(new Date(status.last_reading)));
         $(".updated").css("opacity", "1");
     });
@@ -62,6 +62,7 @@ function makeLastHourBox() {
             scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
+            useUtc: false,
         });
     });
 }
@@ -77,6 +78,7 @@ function makeTwelveHourBox() {
             scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
+            useUtc: false,
         });
     });
 }
@@ -92,6 +94,7 @@ function makeTwentyFourHourBox() {
             scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
+            useUtc: false,
         });
     });
 }
@@ -107,6 +110,7 @@ function makeWeekBox() {
             scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
+            useUtc: false,
         });
     });
 }
@@ -122,6 +126,7 @@ function makeMonthBox() {
             scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
+            useUtc: false,
         });
     });
 }
@@ -137,6 +142,7 @@ function makeYearBox() {
             scaleShowVerticalLines: false,
             scaleType: "date",
             pointDot : false,
+            useUtc: false,
         });
     });
 }
@@ -181,6 +187,7 @@ function makeAllChart() {
             scaleType: "date",
             pointDot : false,
             bezierCurve : false,
+            useUtc: false,
         });
     });
 }
