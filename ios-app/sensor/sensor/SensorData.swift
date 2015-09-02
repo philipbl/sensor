@@ -11,70 +11,87 @@ import Foundation
 
 var baseURL = "http://localhost:5000/"
 
-class SensorData {
-    
-    func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {
-        func success(data: JSON) {
-            let lastReading = data["last_reading"].doubleValue
-            let date = NSDate(timeIntervalSince1970: lastReading / 1000)
-            
-            successHandler(date)
-        }
+
+func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {
+    func success(data: JSON) {
+        let lastReading = data["last_reading"].doubleValue
+        let date = NSDate(timeIntervalSince1970: lastReading / 1000)
         
-        download("sensor/status", successHandler: success) { errorHandler($0) }
+        successHandler(date)
     }
     
-    func getSummary(successHandler: ([String: Double], [String: Double]) -> (), errorHandler: (String) -> ()) {
-        func success(data: JSON) {
-            let humData = data["humidity"]
-            let tempData = data["temperature"]
-            
-            var newTempData = [String: Double]()
-            var newHumData = [String: Double]()
-            
-            newHumData["current"] = humData["current"].doubleValue
-            newHumData["min"] = humData["min"].doubleValue
-            newHumData["max"] = humData["max"].doubleValue
-            
-            newTempData["current"] = tempData["current"].doubleValue
-            newTempData["min"] = tempData["min"].doubleValue
-            newTempData["max"] = tempData["max"].doubleValue
-            
-            successHandler(newTempData, newHumData)
-        }
+    download("sensor/status", success) { errorHandler($0) }
+}
+
+func getSummary(successHandler: ([String: Double], [String: Double]) -> (), errorHandler: (String) -> ()) {
+    func success(data: JSON) {
+        let newHumData = convertData(data["humidity"])
+        let newTempData = convertData(data["temperature"])
         
-        download("sensor/summary?duration=1440", successHandler: success) { errorHandler($0) }
+        successHandler(newTempData, newHumData)
     }
     
-    func getTwelveHourData() {
-        
-    }
-    
-    func getTwentyFourHourData() {
-        
-    }
-    
-    private func download(url: String, successHandler: (JSON) -> (), errorHandler: (String) -> ()) {
-        let url = NSURL(string: baseURL + url)
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-            if let httpResponse = response as? NSHTTPURLResponse {
-                
-                if httpResponse.statusCode == 200 {
-                    let json = JSON(data: data)
-                    successHandler(json)
-                }
-                else {
-                    errorHandler("Error with URL.")
-                }
-            }
-            else {
-                errorHandler("Error reaching server.")
-            }
-        }
-        
-        task.resume()
-    }
-    
+    download("sensor/summary?duration=1440", success) { errorHandler($0) }
+}
+
+func getTwelveHourData() {
     
 }
+
+func getTwentyFourHourData() {
+    
+}
+
+func getAverageWeekData(successHandler: ([String: Double]) -> (), errorHandler: (String) -> ()) {
+    func success(data: JSON) {
+        let newData = convertData(data)
+        
+        successHandler(newData)
+    }
+    
+    download("sensor/average/week", success) { errorHandler($0) }
+}
+
+func getAverageDayData(successHandler: ([String: Double]) -> (), errorHandler: (String) -> ()) {
+    func success(data: JSON) {
+        let newData = convertData(data)
+        
+        successHandler(newData)
+    }
+    
+    download("sensor/average/day", success) { errorHandler($0) }
+}
+
+private func convertData(data: JSON) -> [String: Double] {
+    var newData = [String: Double]()
+    
+    for (key: String, subJson: JSON) in data {
+        newData[key] = subJson.doubleValue
+    }
+    
+    return newData
+}
+
+private func download(url: String, successHandler: (JSON) -> (), errorHandler: (String) -> ()) {
+    let url = NSURL(string: baseURL + url)
+    
+    let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+        if let httpResponse = response as? NSHTTPURLResponse {
+            
+            if httpResponse.statusCode == 200 {
+                let json = JSON(data: data)
+                successHandler(json)
+            }
+            else {
+                errorHandler("Error with URL.")
+            }
+        }
+        else {
+            errorHandler("Error reaching server.")
+        }
+    }
+    
+    task.resume()
+}
+
+
