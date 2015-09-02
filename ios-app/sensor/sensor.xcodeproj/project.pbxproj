@@ -13,6 +13,8 @@
 		CC4ED25D1B978E4A00C00568 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4ED25C1B978E4A00C00568 /* Images.xcassets */; };
 		CC4ED2601B978E4A00C00568 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC4ED25E1B978E4A00C00568 /* LaunchScreen.xib */; };
 		CC4ED26C1B978E4A00C00568 /* sensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED26B1B978E4A00C00568 /* sensorTests.swift */; };
+		CC4ED2761B978EA300C00568 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED2751B978EA300C00568 /* SensorData.swift */; };
+		CC4ED2781B978EDB00C00568 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		CC4ED2651B978E4A00C00568 /* sensorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sensorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC4ED26A1B978E4A00C00568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC4ED26B1B978E4A00C00568 /* sensorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sensorTests.swift; sourceTree = "<group>"; };
+		CC4ED2751B978EA300C00568 /* SensorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
+		CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 			children = (
 				CC4ED2551B978E4900C00568 /* AppDelegate.swift */,
 				CC4ED2571B978E4900C00568 /* ViewController.swift */,
+				CC4ED2751B978EA300C00568 /* SensorData.swift */,
+				CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */,
 				CC4ED2591B978E4A00C00568 /* Main.storyboard */,
 				CC4ED25C1B978E4A00C00568 /* Images.xcassets */,
 				CC4ED25E1B978E4A00C00568 /* LaunchScreen.xib */,
@@ -214,6 +220,8 @@
 			files = (
 				CC4ED2581B978E4900C00568 /* ViewController.swift in Sources */,
 				CC4ED2561B978E4900C00568 /* AppDelegate.swift in Sources */,
+				CC4ED2761B978EA300C00568 /* SensorData.swift in Sources */,
+				CC4ED2781B978EDB00C00568 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
