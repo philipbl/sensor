@@ -4,11 +4,29 @@ Chart.defaults.global.responsive = true;
 temperature_color = "#F44336";
 humidity_color = "#2196F3";
 base_url = "https://still-sands-8003.herokuapp.com";
+loader = '<div class="loader"> \
+    <div class="sk-circle"> \
+      <div class="sk-circle1 sk-child"></div> \
+      <div class="sk-circle2 sk-child"></div> \
+      <div class="sk-circle3 sk-child"></div> \
+      <div class="sk-circle4 sk-child"></div> \
+      <div class="sk-circle5 sk-child"></div> \
+      <div class="sk-circle6 sk-child"></div> \
+      <div class="sk-circle7 sk-child"></div> \
+      <div class="sk-circle8 sk-child"></div> \
+      <div class="sk-circle9 sk-child"></div> \
+      <div class="sk-circle10 sk-child"></div> \
+      <div class="sk-circle11 sk-child"></div> \
+      <div class="sk-circle12 sk-child"></div> \
+    </div> \
+  </div>'
+
 
 makeGraphs();
 setTimeout(updateGraphs, 60000);
 
 function makeGraphs() {
+    addLoaders();
     makeUpdateText();
     makeSummaryBox();
     makeLastHourBox();
@@ -20,6 +38,11 @@ function makeGraphs() {
     makeAverageDay();
     makeAverageWeek();
     makeAllChart();
+}
+
+function addLoaders() {
+    var $this = $(".chart-stage");
+    $this.append(loader);
 }
 
 function updateGraphs() {
@@ -56,6 +79,10 @@ function makeSummaryBox() {
         $(".humidity-summary .humidity-high").text(format(summary.humidity.max) + "%");
         $(".humidity-summary .humidity-low").text(format(summary.humidity.min) + "%");
 
+        // Remove loader
+        $("#summary > .loader").remove();
+
+        // Display results
         $(".summary").css("opacity", "1");
     });
 }
@@ -66,6 +93,9 @@ function makeLastHourBox() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#last-hour > .loader").remove();
+
         makeScatterPlot(data, "last-hour-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -82,6 +112,9 @@ function makeTwelveHourBox() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#twelve-hour > .loader").remove();
+
         makeScatterPlot(data, "twelve-hour-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -98,6 +131,9 @@ function makeTwentyFourHourBox() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#twentyfour-hour > .loader").remove();
+
         makeScatterPlot(data, "twentyfour-hour-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -114,6 +150,9 @@ function makeWeekBox() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#week > .loader").remove();
+
         makeScatterPlot(data, "week-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -130,6 +169,9 @@ function makeMonthBox() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#month > .loader").remove();
+
         makeScatterPlot(data, "month-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -146,6 +188,9 @@ function makeYearBox() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#year > .loader").remove();
+
         makeScatterPlot(data, "year-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -162,6 +207,9 @@ function makeAverageDay() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#average-day > .loader").remove();
+
         makeLineGraph(data, "average-day-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -176,6 +224,9 @@ function makeAverageWeek() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#average-week > .loader").remove();
+
         makeLineGraph(data, "average-week-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -190,6 +241,9 @@ function makeAllChart() {
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#all > .loader").remove();
+
         makeScatterPlot(data, "all-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
