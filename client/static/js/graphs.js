@@ -3,6 +3,7 @@ Chart.defaults.global.responsive = true;
 
 temperature_color = "#F44336";
 humidity_color = "#2196F3";
+base_url = "https://still-sands-8003.herokuapp.com";
 
 makeGraphs();
 setTimeout(updateGraphs, 60000);
@@ -30,7 +31,7 @@ function updateGraphs() {
 
 function makeUpdateText() {
     $.ajax({
-        url: "/sensor/status",
+        url: base_url + "/sensor/status",
         dataType: "json"
     })
     .done(function (status) {
@@ -42,7 +43,7 @@ function makeUpdateText() {
 
 function makeSummaryBox() {
     $.ajax({
-        url: "/sensor/summary?duration=1440",
+        url: base_url + "/sensor/summary?duration=1440",
         dataType: "json"
     })
     .done(function (summary) {
@@ -61,7 +62,7 @@ function makeSummaryBox() {
 
 function makeLastHourBox() {
     $.ajax({
-        url: "/sensor/stats/minutes?duration=60",
+        url: base_url + "/sensor/stats/minutes?duration=60",
         dataType: "json"
     })
     .done(function (data) {
@@ -77,7 +78,7 @@ function makeLastHourBox() {
 
 function makeTwelveHourBox() {
     $.ajax({
-        url: "/sensor/stats/minutes?duration=720&interval=15",
+        url: base_url + "/sensor/stats/minutes?duration=720&interval=15",
         dataType: "json"
     })
     .done(function (data) {
@@ -93,7 +94,7 @@ function makeTwelveHourBox() {
 
 function makeTwentyFourHourBox() {
     $.ajax({
-        url: "/sensor/stats/minutes?duration=1440&interval=30",
+        url: base_url + "/sensor/stats/minutes?duration=1440&interval=30",
         dataType: "json"
     })
     .done(function (data) {
@@ -109,7 +110,7 @@ function makeTwentyFourHourBox() {
 
 function makeWeekBox() {
     $.ajax({
-        url: "/sensor/stats/hours?duration=168&interval=3",
+        url: base_url + "/sensor/stats/hours?duration=168&interval=3",
         dataType: "json"
     })
     .done(function (data) {
@@ -125,7 +126,7 @@ function makeWeekBox() {
 
 function makeMonthBox() {
     $.ajax({
-        url: "/sensor/stats/hours?duration=720&interval=12",
+        url: base_url + "/sensor/stats/hours?duration=720&interval=12",
         dataType: "json"
     })
     .done(function (data) {
@@ -141,7 +142,7 @@ function makeMonthBox() {
 
 function makeYearBox() {
     $.ajax({
-        url: "/sensor/stats/days?duration=365&interval=1",
+        url: base_url + "/sensor/stats/days?duration=365&interval=1",
         dataType: "json"
     })
     .done(function (data) {
@@ -157,7 +158,7 @@ function makeYearBox() {
 
 function makeAverageDay() {
     $.ajax({
-        url: "/sensor/average/day",
+        url: base_url + "/sensor/average/day",
         dataType: "json"
     })
     .done(function (data) {
@@ -171,7 +172,7 @@ function makeAverageDay() {
 
 function makeAverageWeek() {
     $.ajax({
-        url: "/sensor/average/week",
+        url: base_url + "/sensor/average/week",
         dataType: "json"
     })
     .done(function (data) {
@@ -185,7 +186,7 @@ function makeAverageWeek() {
 
 function makeAllChart() {
     $.ajax({
-        url: "/sensor/stats/days",
+        url: base_url + "/sensor/stats/days",
         dataType: "json"
     })
     .done(function (data) {
