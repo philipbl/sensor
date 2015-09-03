@@ -56,6 +56,11 @@ function makeSummaryBox() {
         $(".humidity-summary .humidity-high").text(format(summary.humidity.max) + "%");
         $(".humidity-summary .humidity-low").text(format(summary.humidity.min) + "%");
 
+
+        // Remove loader
+        $(".loader").remove();
+
+        // Display results
         $(".summary").css("opacity", "1");
     });
 }
