@@ -1,6 +1,6 @@
 {
   "firebase": "temperature-sensor",
-  "public": "static",
+  "public": ".",
   "ignore": [
     "firebase.json",
     "**/.*",

@@ -3,11 +3,30 @@ Chart.defaults.global.responsive = true;
 
 temperature_color = "#F44336";
 humidity_color = "#2196F3";
+base_url = "https://still-sands-8003.herokuapp.com";
+loader = '<div class="loader"> \
+    <div class="sk-circle"> \
+      <div class="sk-circle1 sk-child"></div> \
+      <div class="sk-circle2 sk-child"></div> \
+      <div class="sk-circle3 sk-child"></div> \
+      <div class="sk-circle4 sk-child"></div> \
+      <div class="sk-circle5 sk-child"></div> \
+      <div class="sk-circle6 sk-child"></div> \
+      <div class="sk-circle7 sk-child"></div> \
+      <div class="sk-circle8 sk-child"></div> \
+      <div class="sk-circle9 sk-child"></div> \
+      <div class="sk-circle10 sk-child"></div> \
+      <div class="sk-circle11 sk-child"></div> \
+      <div class="sk-circle12 sk-child"></div> \
+    </div> \
+  </div>'
+
 
 makeGraphs();
 setTimeout(updateGraphs, 60000);
 
 function makeGraphs() {
+    addLoaders();
     makeUpdateText();
     makeSummaryBox();
     makeLastHourBox();
@@ -21,6 +40,11 @@ function makeGraphs() {
     makeAllChart();
 }
 
+function addLoaders() {
+    var $this = $(".chart-stage");
+    $this.append(loader);
+}
+
 function updateGraphs() {
     makeUpdateText();
     makeSummaryBox();
@@ -30,7 +54,7 @@ function updateGraphs() {
 
 function makeUpdateText() {
     $.ajax({
-        url: "/sensor/status",
+        url: base_url + "/sensor/status",
         dataType: "json"
     })
     .done(function (status) {
@@ -42,7 +66,7 @@ function makeUpdateText() {
 
 function makeSummaryBox() {
     $.ajax({
-        url: "/sensor/summary?duration=1440",
+        url: base_url + "/sensor/summary?duration=1440",
         dataType: "json"
     })
     .done(function (summary) {
@@ -55,16 +79,23 @@ function makeSummaryBox() {
         $(".humidity-summary .humidity-high").text(format(summary.humidity.max) + "%");
         $(".humidity-summary .humidity-low").text(format(summary.humidity.min) + "%");
 
+        // Remove loader
+        $("#summary > .loader").remove();
+
+        // Display results
         $(".summary").css("opacity", "1");
     });
 }
 
 function makeLastHourBox() {
     $.ajax({
-        url: "/sensor/stats/minutes?duration=60",
+        url: base_url + "/sensor/stats/minutes?duration=60",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#last-hour > .loader").remove();
+
         makeScatterPlot(data, "last-hour-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -77,10 +108,13 @@ function makeLastHourBox() {
 
 function makeTwelveHourBox() {
     $.ajax({
-        url: "/sensor/stats/minutes?duration=720&interval=15",
+        url: base_url + "/sensor/stats/minutes?duration=720&interval=15",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#twelve-hour > .loader").remove();
+
         makeScatterPlot(data, "twelve-hour-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -93,10 +127,13 @@ function makeTwelveHourBox() {
 
 function makeTwentyFourHourBox() {
     $.ajax({
-        url: "/sensor/stats/minutes?duration=1440&interval=30",
+        url: base_url + "/sensor/stats/minutes?duration=1440&interval=30",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#twentyfour-hour > .loader").remove();
+
         makeScatterPlot(data, "twentyfour-hour-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -109,10 +146,13 @@ function makeTwentyFourHourBox() {
 
 function makeWeekBox() {
     $.ajax({
-        url: "/sensor/stats/hours?duration=168&interval=3",
+        url: base_url + "/sensor/stats/hours?duration=168&interval=3",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#week > .loader").remove();
+
         makeScatterPlot(data, "week-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -125,10 +165,13 @@ function makeWeekBox() {
 
 function makeMonthBox() {
     $.ajax({
-        url: "/sensor/stats/hours?duration=720&interval=12",
+        url: base_url + "/sensor/stats/hours?duration=720&interval=12",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#month > .loader").remove();
+
         makeScatterPlot(data, "month-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -141,10 +184,13 @@ function makeMonthBox() {
 
 function makeYearBox() {
     $.ajax({
-        url: "/sensor/stats/days?duration=365&interval=1",
+        url: base_url + "/sensor/stats/days?duration=365&interval=1",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#year > .loader").remove();
+
         makeScatterPlot(data, "year-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -157,10 +203,13 @@ function makeYearBox() {
 
 function makeAverageDay() {
     $.ajax({
-        url: "/sensor/average/day",
+        url: base_url + "/sensor/average/day",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#average-day > .loader").remove();
+
         makeLineGraph(data, "average-day-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -171,10 +220,13 @@ function makeAverageDay() {
 
 function makeAverageWeek() {
     $.ajax({
-        url: "/sensor/average/week",
+        url: base_url + "/sensor/average/week",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#average-week > .loader").remove();
+
         makeLineGraph(data, "average-week-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
@@ -185,10 +237,13 @@ function makeAverageWeek() {
 
 function makeAllChart() {
     $.ajax({
-        url: "/sensor/stats/days",
+        url: base_url + "/sensor/stats/days",
         dataType: "json"
     })
     .done(function (data) {
+        // Remove loader
+        $("#all > .loader").remove();
+
         makeScatterPlot(data, "all-chart", temperature_color, humidity_color, {
             // scaleShowGridLines : false,
             scaleShowVerticalLines: false,
