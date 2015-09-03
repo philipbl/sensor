@@ -12,23 +12,6 @@
   <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
 </head>
 <body class="application">
-  <div class="loader">
-    <div class="sk-circle">
-      <div class="sk-circle1 sk-child"></div>
-      <div class="sk-circle2 sk-child"></div>
-      <div class="sk-circle3 sk-child"></div>
-      <div class="sk-circle4 sk-child"></div>
-      <div class="sk-circle5 sk-child"></div>
-      <div class="sk-circle6 sk-child"></div>
-      <div class="sk-circle7 sk-child"></div>
-      <div class="sk-circle8 sk-child"></div>
-      <div class="sk-circle9 sk-child"></div>
-      <div class="sk-circle10 sk-child"></div>
-      <div class="sk-circle11 sk-child"></div>
-      <div class="sk-circle12 sk-child"></div>
-    </div>
-    <div class="loader-text">Loading...</div>
-  </div>
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header location">
@@ -49,7 +32,7 @@
           <div class="chart-title">
             Current
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="summary">
             <div class="summary text-center">
               <div class="temp-summary">
                 <span class="temp-low">???</span>
@@ -73,7 +56,7 @@
           <div class="chart-title">
             Last hour
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="last-hour">
             <canvas id="last-hour-chart"></canvas>
           </div>
         </div>
@@ -83,7 +66,7 @@
           <div class="chart-title">
             Last 12 hours
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="twelve-hour">
             <canvas id="twelve-hour-chart"></canvas>
           </div>
         </div>
@@ -95,7 +78,7 @@
           <div class="chart-title">
             Last 24 Hours
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="twentyfour-hour">
             <canvas id="twentyfour-hour-chart"></canvas>
           </div>
         </div>
@@ -105,7 +88,7 @@
           <div class="chart-title">
             Last Week
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="week">
             <canvas id="week-chart"></canvas>
           </div>
         </div>
@@ -117,7 +100,7 @@
           <div class="chart-title">
             Last Month
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="month">
             <canvas id="month-chart"></canvas>
           </div>
         </div>
@@ -127,7 +110,7 @@
           <div class="chart-title">
             Last Year
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="year">
             <canvas id="year-chart"></canvas>
           </div>
         </div>
@@ -139,7 +122,7 @@
           <div class="chart-title">
             Average By Time of Day
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="average-day">
             <canvas id="average-day-chart"></canvas>
           </div>
         </div>
@@ -149,7 +132,7 @@
           <div class="chart-title">
             Average By Day of Week
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="average-week">
             <canvas id="average-week-chart"></canvas>
           </div>
         </div>
@@ -161,7 +144,7 @@
           <div class="chart-title">
             All Time
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage" id="all">
             <canvas id="all-chart"></canvas>
           </div>
         </div>
