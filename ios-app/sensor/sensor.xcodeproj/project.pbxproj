@@ -15,6 +15,9 @@
 		CC4ED26C1B978E4A00C00568 /* sensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED26B1B978E4A00C00568 /* sensorTests.swift */; };
 		CC4ED2761B978EA300C00568 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED2751B978EA300C00568 /* SensorData.swift */; };
 		CC4ED2781B978EDB00C00568 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */; };
+		CC78A50E1B98B948006F1844 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78A50D1B98B948006F1844 /* Graphs.swift */; };
+		CC78A5151B98B9D2006F1844 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC78A5141B98B9C9006F1844 /* Charts.framework */; };
+		CC78A5161B98B9D2006F1844 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CC78A5141B98B9C9006F1844 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,7 +28,35 @@
 			remoteGlobalIDString = CC4ED24F1B978E4900C00568;
 			remoteInfo = sensor;
 		};
+		CC78A5131B98B9C9006F1844 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC78A50F1B98B9C8006F1844 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
+			remoteInfo = Charts;
+		};
+		CC78A5171B98B9D2006F1844 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC78A50F1B98B9C8006F1844 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BA8EC3F1A9D14DC00CE82E1;
+			remoteInfo = Charts;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CC78A5191B98B9D2006F1844 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CC78A5161B98B9D2006F1844 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CC4ED2501B978E4900C00568 /* sensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +71,8 @@
 		CC4ED26B1B978E4A00C00568 /* sensorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sensorTests.swift; sourceTree = "<group>"; };
 		CC4ED2751B978EA300C00568 /* SensorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CC78A50D1B98B948006F1844 /* Graphs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
+		CC78A50F1B98B9C8006F1844 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Downloads/ios-charts-master-3/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC78A5151B98B9D2006F1844 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +97,7 @@
 		CC4ED2471B978E4900C00568 = {
 			isa = PBXGroup;
 			children = (
+				CC78A50F1B98B9C8006F1844 /* Charts.xcodeproj */,
 				CC4ED2521B978E4900C00568 /* sensor */,
 				CC4ED2681B978E4A00C00568 /* sensorTests */,
 				CC4ED2511B978E4900C00568 /* Products */,
@@ -83,6 +118,7 @@
 			children = (
 				CC4ED2551B978E4900C00568 /* AppDelegate.swift */,
 				CC4ED2571B978E4900C00568 /* ViewController.swift */,
+				CC78A50D1B98B948006F1844 /* Graphs.swift */,
 				CC4ED2751B978EA300C00568 /* SensorData.swift */,
 				CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */,
 				CC4ED2591B978E4A00C00568 /* Main.storyboard */,
@@ -118,6 +154,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CC78A5101B98B9C8006F1844 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC78A5141B98B9C9006F1844 /* Charts.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -128,10 +172,12 @@
 				CC4ED24C1B978E4900C00568 /* Sources */,
 				CC4ED24D1B978E4900C00568 /* Frameworks */,
 				CC4ED24E1B978E4900C00568 /* Resources */,
+				CC78A5191B98B9D2006F1844 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CC78A5181B98B9D2006F1844 /* PBXTargetDependency */,
 			);
 			name = sensor;
 			productName = sensor;
@@ -185,6 +231,12 @@
 			mainGroup = CC4ED2471B978E4900C00568;
 			productRefGroup = CC4ED2511B978E4900C00568 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CC78A5101B98B9C8006F1844 /* Products */;
+					ProjectRef = CC78A50F1B98B9C8006F1844 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				CC4ED24F1B978E4900C00568 /* sensor */,
@@ -192,6 +244,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CC78A5141B98B9C9006F1844 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = CC78A5131B98B9C9006F1844 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CC4ED24E1B978E4900C00568 /* Resources */ = {
@@ -220,6 +282,7 @@
 			files = (
 				CC4ED2581B978E4900C00568 /* ViewController.swift in Sources */,
 				CC4ED2561B978E4900C00568 /* AppDelegate.swift in Sources */,
+				CC78A50E1B98B948006F1844 /* Graphs.swift in Sources */,
 				CC4ED2761B978EA300C00568 /* SensorData.swift in Sources */,
 				CC4ED2781B978EDB00C00568 /* SwiftyJSON.swift in Sources */,
 			);
@@ -240,6 +303,11 @@
 			isa = PBXTargetDependency;
 			target = CC4ED24F1B978E4900C00568 /* sensor */;
 			targetProxy = CC4ED2661B978E4A00C00568 /* PBXContainerItemProxy */;
+		};
+		CC78A5181B98B9D2006F1844 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = CC78A5171B98B9D2006F1844 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -419,6 +487,7 @@
 				CC4ED2711B978E4A00C00568 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC4ED2721B978E4A00C00568 /* Build configuration list for PBXNativeTarget "sensorTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +496,7 @@
 				CC4ED2741B978E4A00C00568 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
