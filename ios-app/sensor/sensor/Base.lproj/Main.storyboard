@@ -69,6 +69,10 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yH7-Hd-hLt" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="130.5" width="568" height="461.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -78,6 +82,7 @@
                             <constraint firstItem="nmD-cr-yNe" firstAttribute="leading" secondItem="UNc-ly-aUu" secondAttribute="trailing" constant="10" id="4n8-Kj-4zK"/>
                             <constraint firstItem="7h0-gL-TnX" firstAttribute="baseline" secondItem="mrJ-nV-Ewv" secondAttribute="baseline" id="5mU-hw-Vn2"/>
                             <constraint firstItem="7h0-gL-TnX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="7P1-zw-eZk"/>
+                            <constraint firstItem="yH7-Hd-hLt" firstAttribute="top" secondItem="nmD-cr-yNe" secondAttribute="bottom" constant="8" symbolic="YES" id="8SF-r6-OMQ"/>
                             <constraint firstItem="UfS-5m-kdl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Egw-nO-dUu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QoT-J3-JNU" secondAttribute="trailing" id="GDP-Gg-nQa"/>
                             <constraint firstItem="B0d-D3-erS" firstAttribute="bottom" secondItem="mrJ-nV-Ewv" secondAttribute="bottom" id="I8e-aQ-fUJ"/>
@@ -87,8 +92,10 @@
                             <constraint firstItem="JQw-5j-ISS" firstAttribute="leading" secondItem="7h0-gL-TnX" secondAttribute="trailing" constant="10" id="RWw-Ff-u8V"/>
                             <constraint firstItem="JQw-5j-ISS" firstAttribute="top" secondItem="QoT-J3-JNU" secondAttribute="top" id="SvL-ky-eh9"/>
                             <constraint firstItem="B0d-D3-erS" firstAttribute="top" secondItem="mrJ-nV-Ewv" secondAttribute="top" id="Tqf-SA-6fM"/>
+                            <constraint firstItem="yH7-Hd-hLt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="UDt-du-9nd"/>
                             <constraint firstItem="UfS-5m-kdl" firstAttribute="width" secondItem="5NE-PY-Sk7" secondAttribute="width" id="VRp-Rv-Zea"/>
                             <constraint firstItem="iWe-eu-yvT" firstAttribute="leading" secondItem="nmD-cr-yNe" secondAttribute="trailing" constant="10" id="aJ1-TH-OLJ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yH7-Hd-hLt" secondAttribute="bottom" constant="8" symbolic="YES" id="bBF-Ww-e6l"/>
                             <constraint firstItem="5NE-PY-Sk7" firstAttribute="leading" secondItem="iWe-eu-yvT" secondAttribute="trailing" constant="8" symbolic="YES" id="bua-nv-lVL"/>
                             <constraint firstItem="mrJ-nV-Ewv" firstAttribute="leading" secondItem="B0d-D3-erS" secondAttribute="trailing" constant="8" symbolic="YES" id="fVf-dM-ehS"/>
                             <constraint firstItem="iWe-eu-yvT" firstAttribute="baseline" secondItem="nmD-cr-yNe" secondAttribute="baseline" id="gJ4-MC-dl0"/>
@@ -99,6 +106,7 @@
                             <constraint firstItem="7h0-gL-TnX" firstAttribute="leading" secondItem="mrJ-nV-Ewv" secondAttribute="trailing" constant="10" id="ncm-7k-Jz2"/>
                             <constraint firstItem="B0d-D3-erS" firstAttribute="width" secondItem="QoT-J3-JNU" secondAttribute="width" id="qVB-oa-1hR"/>
                             <constraint firstItem="UNc-ly-aUu" firstAttribute="leading" secondItem="UfS-5m-kdl" secondAttribute="trailing" constant="8" symbolic="YES" id="rVo-GD-vzF"/>
+                            <constraint firstItem="yH7-Hd-hLt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="sSI-wz-CAy"/>
                             <constraint firstItem="nmD-cr-yNe" firstAttribute="baseline" secondItem="UNc-ly-aUu" secondAttribute="baseline" id="tCH-6h-Mrr"/>
                         </constraints>
                     </view>
