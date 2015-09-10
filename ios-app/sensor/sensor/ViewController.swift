@@ -40,13 +40,13 @@ class ViewController: UIViewController {
             let hMin = humData["min"]!
             
             dispatch_async(dispatch_get_main_queue()) {
-                self.currentTemperature.text = String(format: "%.01f°", tCurrent)
-                self.maxTemperature.text = String(format: "%.01f°", tMax)
-                self.minTemperature.text = String(format: "%.01f°", tMin)
+                self.currentTemperature.text = tCurrent.formatString + "°"
+                self.maxTemperature.text = tMax.formatString + "°"
+                self.minTemperature.text = tMin.formatString + "°"
                 
-                self.currentHumidity.text = String(format: "%.01f%%", hCurrent)
-                self.maxHumidity.text = String(format: "%.01f%%", hMax)
-                self.minHumidity.text = String(format: "%.01f%%", hMin)
+                self.currentHumidity.text = hCurrent.formatString + "%"
+                self.maxHumidity.text = hMax.formatString + "%"
+                self.minHumidity.text = hMin.formatString + "%"
             }
         }
         
@@ -56,3 +56,6 @@ class ViewController: UIViewController {
 
 }
 
+extension Double {
+    var formatString: String { return String(format: "%.01f") }
+}
