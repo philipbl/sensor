@@ -110,6 +110,9 @@
                             <constraint firstItem="nmD-cr-yNe" firstAttribute="baseline" secondItem="UNc-ly-aUu" secondAttribute="baseline" id="tCH-6h-Mrr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lineGraphView" destination="yH7-Hd-hLt" id="jxL-qb-DCx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

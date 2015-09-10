@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 class ViewController: UIViewController {
     @IBOutlet weak var currentTemperature: UILabel!
@@ -17,11 +18,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxHumidity: UILabel!
     @IBOutlet weak var minHumidity: UILabel!
 
+    @IBOutlet weak var lineGraphView: LineChartView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         updateSummaryView()
+        updateTwelveHourView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +34,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func updateSummaryView() {
+    private func updateStatusView() {
+        // Update some label somewhere
+    }
+    
+    private func updateSummaryView() {
         func update(tempData: [String: Double], humData: [String: Double]) -> () {
             let tCurrent = tempData["current"]!
             let tMax = tempData["max"]!
@@ -52,7 +61,10 @@ class ViewController: UIViewController {
         
         getSummary(update, { println($0) })
     }
-
+    
+    private func updateTwelveHourView() {
+        createGraph(lineGraphView, [10.0, 4.0, 2.0], [32.0, 45.0, 40.0], ["1", "2", "3"])
+    }
 
 }
 
