@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         updateSummaryView()
-        updateTwelveHourView()
+        updateAverageDayView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         getSummary(update, { println($0) })
     }
     
-    private func updateTwelveHourView() {
+    private func updateAverageDayView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(lineGraphView,
                 data["humidity"] as! [Double],
