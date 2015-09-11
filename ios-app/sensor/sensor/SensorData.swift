@@ -24,6 +24,16 @@ func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {
 }
 
 func getSummary(successHandler: ([String: Double], [String: Double]) -> (), errorHandler: (String) -> ()) {
+    func convertData(data: JSON) -> [String: Double] {
+        var newData = [String: Double]()
+        
+        for (key: String, subJson: JSON) in data {
+            newData[key] = subJson.doubleValue
+        }
+        
+        return newData
+    }
+    
     func success(data: JSON) {
         let newHumData = convertData(data["humidity"])
         let newTempData = convertData(data["temperature"])
@@ -42,9 +52,12 @@ func getTwentyFourHourData() {
     
 }
 
-func getAverageWeekData(successHandler: ([String: Double]) -> (), errorHandler: (String) -> ()) {
+func getAverageWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
     func success(data: JSON) {
-        let newData = convertData(data)
+        println(data)
+        let newData = ["temperature": convertArrayData(data["temperature"]) { $0.doubleValue },
+                       "humidity": convertArrayData(data["humidity"]) { $0.doubleValue },
+                       "labels": convertArrayData(data["labels"]) { $0.stringValue }]
         
         successHandler(newData)
     }
@@ -52,9 +65,11 @@ func getAverageWeekData(successHandler: ([String: Double]) -> (), errorHandler: 
     download("sensor/average/week", success) { errorHandler($0) }
 }
 
-func getAverageDayData(successHandler: ([String: Double]) -> (), errorHandler: (String) -> ()) {
+func getAverageDayData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
     func success(data: JSON) {
-        let newData = convertData(data)
+        let newData = ["temperature": convertArrayData(data["temperature"]) { $0.doubleValue },
+                       "humidity": convertArrayData(data["humidity"]) { $0.doubleValue },
+                       "labels": convertArrayData(data["labels"]) { $0.stringValue }]
         
         successHandler(newData)
     }
@@ -62,14 +77,14 @@ func getAverageDayData(successHandler: ([String: Double]) -> (), errorHandler: (
     download("sensor/average/day", success) { errorHandler($0) }
 }
 
-private func convertData(data: JSON) -> [String: Double] {
-    var newData = [String: Double]()
+private func convertArrayData(data: JSON, converter: (JSON) -> AnyObject) -> [AnyObject] {
+    var list = [AnyObject]()
     
-    for (key: String, subJson: JSON) in data {
-        newData[key] = subJson.doubleValue
+    for (index: String, subJson: JSON) in data {
+        list.append(converter(subJson))
     }
     
-    return newData
+    return list
 }
 
 private func download(url: String, successHandler: (JSON) -> (), errorHandler: (String) -> ()) {
