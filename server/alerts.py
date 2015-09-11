@@ -12,15 +12,22 @@ class Alerts(object):
         self.alerts = self._get_past_alerts()
 
     def _get_latest_data(self):
-        # TODO: Limit to one entry
-        # results = self.fb.get('', 'measurements', params={'orderBy': '"date"'})
-        return {"temperature": 90, "humidity": 40}
+        results = self.fb.get('', 'measurements', params={'orderBy': '"date"', 'limitToLast': 1})
+        return list(results.values())[0]
 
     def _get_past_alerts(self):
-        # TODO: Build structure from firebase
         results = self.fb.get('', 'alerts')
 
-        return pd.DataFrame(columns=['type', 'bound', 'direction', 'email'])
+        data = []
+        for key, value in results.items():
+            value['name'] = key
+            value['active'] = False
+            value['direction'] = operator.gt if value['direction'] == 'gt' else operator.lt
+            data.append(value)
+
+        df = pd.DataFrame(data)
+        df = df.set_index('name')
+        return df
 
     def _trigger_alert(self, trigger, current):
         print("Send email to {} saying:".format(trigger.email))
@@ -49,12 +56,16 @@ class Alerts(object):
         # threading.Timer(60, self.run).start()
 
     def add_alert(self, email, type, bound, direction):
-        # TODO: Add to database
+        # Store alert in database
+        result = self.fb.post('alerts',
+                             {"email": email, "type": type, "bound": bound, "direction": direction})
 
+        # Keep track of alert locally
         direction = operator.gt if direction == 'gt' else operator.lt
         s = pd.Series([type, bound, direction, email, False],
-                      index=['type', 'bound', 'direction', 'email', 'active'])
-        self.alerts = self.alerts.append(s, ignore_index=True)
+                      index=['type', 'bound', 'direction', 'email', 'active'],
+                      name=result['name'])
+        self.alerts = self.alerts.append(s)
 
     def delete_alert(self, email, type, bound, direction):
         # TODO: Remove from database
@@ -67,12 +78,12 @@ class Alerts(object):
 
 
 alerts = Alerts()
-alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 70, 'gt')
+# alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 70, 'gt')
 alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 80, 'gt')
-alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 60, 'lt')
-# print(alerts.alerts)
+# alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 60, 'lt')
+print(alerts.alerts)
 # alerts.delete_alert("philiplundrigan@gmail.com", 'temperature', 70, 'gt')
 # alerts.delete_alert("philiplundrigan@gmail.com", 'temperature', 60, 'lt')
 # print(alerts.alerts)
-alerts.run()
+# alerts.run()
 
