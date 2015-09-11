@@ -63,7 +63,14 @@ class ViewController: UIViewController {
     }
     
     private func updateTwelveHourView() {
-        createGraph(lineGraphView, [10.0, 4.0, 2.0], [32.0, 45.0, 40.0], ["1", "2", "3"])
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(lineGraphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [String])
+        }
+        
+        getAverageWeekData(update, { println($0) })
     }
 
 }
