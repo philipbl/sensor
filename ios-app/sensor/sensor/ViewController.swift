@@ -69,5 +69,5 @@ class ViewController: UIViewController {
 }
 
 extension Double {
-    var formatString: String { return String(format: "%.01f") }
+    var formatString: String { return String(format: "%.01f", self) }
 }

@@ -111,7 +111,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="currentHumidity" destination="nmD-cr-yNe" id="CCL-Sq-cex"/>
+                        <outlet property="currentTemperature" destination="7h0-gL-TnX" id="I0X-sq-Ygl"/>
                         <outlet property="lineGraphView" destination="yH7-Hd-hLt" id="jxL-qb-DCx"/>
+                        <outlet property="maxHumidity" destination="iWe-eu-yvT" id="sji-Pc-s7o"/>
+                        <outlet property="maxTemperature" destination="JQw-5j-ISS" id="i6N-Bo-akP"/>
+                        <outlet property="minHumidity" destination="UNc-ly-aUu" id="taB-XV-lpS"/>
+                        <outlet property="minTemperature" destination="mrJ-nV-Ewv" id="QAI-5p-4Ac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
