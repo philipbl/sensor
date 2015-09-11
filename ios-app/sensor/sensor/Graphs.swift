@@ -46,6 +46,6 @@ func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [
     view.legend.enabled = false
     view.xAxis.labelPosition = .Bottom
     view.xAxis.drawGridLinesEnabled = false;
-    view.animate(xAxisDuration: 1, yAxisDuration: 0)
+    view.animate(xAxisDuration: 0.5, yAxisDuration: 0)
     view.drawGridBackgroundEnabled = false;
 }

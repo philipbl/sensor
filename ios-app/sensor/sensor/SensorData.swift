@@ -54,7 +54,6 @@ func getTwentyFourHourData() {
 
 func getAverageWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
     func success(data: JSON) {
-        println(data)
         let newData = ["temperature": convertArrayData(data["temperature"]) { $0.doubleValue },
                        "humidity": convertArrayData(data["humidity"]) { $0.doubleValue },
                        "labels": convertArrayData(data["labels"]) { $0.stringValue }]

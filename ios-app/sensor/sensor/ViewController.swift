@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var minHumidity: UILabel!
 
     @IBOutlet weak var lineGraphView: LineChartView!
+    @IBOutlet weak var lineGraphView2: LineChartView!
     
     
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         
         updateSummaryView()
         updateAverageDayView()
+        updateAverageWeekView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +67,17 @@ class ViewController: UIViewController {
     private func updateAverageDayView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(lineGraphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [String])
+        }
+        
+        getAverageDayData(update, { println($0) })
+    }
+    
+    private func updateAverageWeekView() {
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(lineGraphView2,
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
                 data["labels"] as! [String])
