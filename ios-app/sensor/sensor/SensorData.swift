@@ -9,7 +9,8 @@
 import Foundation
 //import SwiftyJSON
 
-var baseURL = "http://localhost:5000/"
+//let baseURL = "http://localhost:5000/"
+let baseURL = "https://still-sands-8003.herokuapp.com/"
 
 
 func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {

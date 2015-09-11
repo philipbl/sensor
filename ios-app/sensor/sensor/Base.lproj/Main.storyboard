@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -136,6 +137,8 @@
                                 <exclude reference="vjw-ar-BGL"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="IHN-w9-KD5"/>
+                                <exclude reference="Tgy-km-2zg"/>
                                 <exclude reference="DZR-CI-00h"/>
                                 <exclude reference="LIm-1P-g17"/>
                                 <exclude reference="MAF-bX-2wo"/>
@@ -143,8 +146,6 @@
                                 <exclude reference="mo2-QM-eDt"/>
                                 <exclude reference="ngk-oH-ZFy"/>
                                 <exclude reference="yOo-g0-U0g"/>
-                                <exclude reference="IHN-w9-KD5"/>
-                                <exclude reference="Tgy-km-2zg"/>
                                 <exclude reference="YxW-sL-xoc"/>
                             </mask>
                         </variation>
@@ -153,6 +154,10 @@
                                 <include reference="vjw-ar-BGL"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="IHN-w9-KD5"/>
+                                <include reference="Tgy-km-2zg"/>
+                                <exclude reference="sSI-wz-CAy"/>
+                                <exclude reference="xom-aT-POH"/>
                                 <include reference="DZR-CI-00h"/>
                                 <exclude reference="LIm-1P-g17"/>
                                 <exclude reference="MAF-bX-2wo"/>
@@ -160,10 +165,6 @@
                                 <exclude reference="mo2-QM-eDt"/>
                                 <include reference="ngk-oH-ZFy"/>
                                 <include reference="yOo-g0-U0g"/>
-                                <include reference="IHN-w9-KD5"/>
-                                <include reference="Tgy-km-2zg"/>
-                                <exclude reference="sSI-wz-CAy"/>
-                                <exclude reference="xom-aT-POH"/>
                                 <include reference="YxW-sL-xoc"/>
                             </mask>
                         </variation>
