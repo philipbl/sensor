@@ -10,6 +10,8 @@ import UIKit
 import Charts
 
 class ViewController: UIViewController {
+    static var setVisibleCalls = 0
+    
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var maxTemperature: UILabel!
     @IBOutlet weak var minTemperature: UILabel!
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // TODO: Only update if it is in the view
         updateSummaryView()
         updateAverageDayView()
         updateAverageWeekView()
@@ -59,9 +62,15 @@ class ViewController: UIViewController {
                 self.maxHumidity.text = hMax.formatString + "%"
                 self.minHumidity.text = hMin.formatString + "%"
             }
+            
+            ViewController.networkActivity(false)
         }
         
-        getSummary(update, { println($0) })
+        ViewController.networkActivity(true)
+        getSummary(update) {
+            ViewController.networkActivity(false)
+            println($0)
+        }
     }
     
     private func updateAverageDayView() {
@@ -70,9 +79,15 @@ class ViewController: UIViewController {
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
                 data["labels"] as! [String])
+            
+            ViewController.networkActivity(false)
         }
         
-        getAverageDayData(update, { println($0) })
+        ViewController.networkActivity(true)
+        getAverageDayData(update) {
+            ViewController.networkActivity(false)
+            println($0)
+        }
     }
     
     private func updateAverageWeekView() {
@@ -81,11 +96,28 @@ class ViewController: UIViewController {
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
                 data["labels"] as! [String])
+            
+            ViewController.networkActivity(false)
         }
         
-        getAverageWeekData(update, { println($0) })
+        ViewController.networkActivity(true)
+        getAverageWeekData(update) {
+            ViewController.networkActivity(false)
+            println($0)
+        }
     }
-
+    
+    static func networkActivity(visible: Bool) {
+        if visible {
+            setVisibleCalls++
+        }
+        else {
+            setVisibleCalls--
+        }
+        
+        assert(setVisibleCalls >= 0, "Network Activity Indicator was asked to hide more often than shown")
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = setVisibleCalls > 0
+    }
 }
 
 extension Double {
