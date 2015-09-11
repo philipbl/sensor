@@ -3,6 +3,7 @@ from itertools import combinations
 import numpy as np
 import pandas as pd
 import threading
+import operator
 
 class Alerts(object):
     def __init__(self):
@@ -13,7 +14,7 @@ class Alerts(object):
     def _get_latest_data(self):
         # TODO: Limit to one entry
         # results = self.fb.get('', 'measurements', params={'orderBy': '"date"'})
-        return 90, 40
+        return {"temperature": 90, "humidity": 40}
 
     def _get_past_alerts(self):
         # TODO: Build structure from firebase
@@ -21,39 +22,38 @@ class Alerts(object):
 
         return pd.DataFrame(columns=['type', 'bound', 'direction', 'email'])
 
-    def _check_for_triggered_alerts(self):
-        temperature, humidity = self._get_latest_data()
+    def _trigger_alert(self, trigger, current):
+        print("Send email to {} saying:".format(trigger.email))
+        print("{type} has gone {direction} {bound} ({current}).".format(type=trigger.type,
+                                                                        direction="above" if trigger.direction == operator.gt else "below",
+                                                                        bound=trigger.bound,
+                                                                        current=current[trigger.type]))
+        print()
 
+    def _trigger_alerts(self):
+        data = self._get_latest_data()
         df = self.alerts
-        active_alerts = []
-        for type in ['temperature', 'humidity']:
 
-            active_alerts.append(df[(df.type == type) &
-                                    (df.direction == 'gt') &
-                                    (temperature > df.bound)])
+        for i in range(len(df)):
+            series = df.ix[i]
 
-            active_alerts.append(df[(df.type == type) &
-                                    (df.direction == 'lt') &
-                                    (temperature < df.bound)])
-
-        active_alerts = pd.concat(active_alerts)
-        return active_alerts
-
-    def _trigger_alerts(self, alerts):
-        # TODO: Finish
-        pass
+            if series.direction(data[series.type], series.bound) and \
+               not series.active:
+               df.loc[i, 'active'] = True
+               self._trigger_alert(series, data)
+            else:
+                df.loc[i, 'active'] = False
 
     def run(self):
-        alerts = self._check_for_triggered_alerts()
-        self._trigger_alerts(alerts)
-
-        threading.Timer(60, self.run).start()
+        alerts = self._trigger_alerts()
+        # threading.Timer(60, self.run).start()
 
     def add_alert(self, email, type, bound, direction):
         # TODO: Add to database
 
-        s = pd.Series([type, bound, direction, email],
-                      index=['type', 'bound', 'direction', 'email'])
+        direction = operator.gt if direction == 'gt' else operator.lt
+        s = pd.Series([type, bound, direction, email, False],
+                      index=['type', 'bound', 'direction', 'email', 'active'])
         self.alerts = self.alerts.append(s, ignore_index=True)
 
     def delete_alert(self, email, type, bound, direction):
