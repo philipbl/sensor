@@ -17,7 +17,7 @@ class SensorData {
     func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {
         func success(data: JSON) {
             let lastReading = data["last_reading"].doubleValue
-            let date = NSDate(timeIntervalSince1970: lastReading / 1000)
+            let date = convertDate(lastReading)
             
             successHandler(date)
         }
@@ -51,11 +51,44 @@ class SensorData {
         )
     }
     
-    func getTwelveHourData() {
+    func getHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+        download(
+            "sensor/stats/minutes?duration=60",
+            successHandler: { successHandler(self.convertDictData($0)) },
+            errorHandler: { errorHandler($0) }
+        )
     }
     
-    func getTwentyFourHourData() {
-        
+    func getTwelveHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+        download(
+            "sensor/stats/minutes?duration=720&interval=15",
+            successHandler: { successHandler(self.convertDictData($0)) },
+            errorHandler: { errorHandler($0) }
+        )
+    }
+    
+    func getTwentyFourHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+        download(
+            "sensor/stats/minutes?duration=1440&interval=30",
+            successHandler: { successHandler(self.convertDictData($0)) },
+            errorHandler: { errorHandler($0) }
+        )
+    }
+    
+    func getWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+        download(
+            "sensor/stats/hours?duration=168&interval=3",
+            successHandler: { successHandler(self.convertDictData($0)) },
+            errorHandler: { errorHandler($0) }
+        )
+    }
+    
+    func getMonthData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+        download(
+            "sensor/stats/hours?duration=720&interval=12",
+            successHandler: { successHandler(self.convertDictData($0)) },
+            errorHandler: { errorHandler($0) }
+        )
     }
     
     func getAverageWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
@@ -82,6 +115,25 @@ class SensorData {
         download("sensor/average/day", successHandler: success, errorHandler: { errorHandler($0) })
     }
     
+    private func convertDictData(data: JSON) -> [String: [AnyObject]] {
+        let humidityArray = data["humidity"].arrayValue
+        let temperatureArray = data["temperature"].arrayValue
+        
+        let humidityData = map(humidityArray, { data in
+            return data["y"].doubleValue
+        })
+        
+        let temperatureData = map(temperatureArray, { data in
+            return data["y"].doubleValue
+        })
+        
+        let labels = map(temperatureArray, { data in
+            return self.convertDate(data["x"].doubleValue)
+        })
+        
+        return ["temperature": temperatureData, "humidity": humidityData, "labels": labels]
+    }
+    
     private func convertArrayData(data: JSON, converter: (JSON) -> AnyObject) -> [AnyObject] {
         var list = [AnyObject]()
         
@@ -90,6 +142,10 @@ class SensorData {
         }
         
         return list
+    }
+    
+    private func convertDate(date: Double) -> NSDate {
+        return NSDate(timeIntervalSince1970: date / 1000)
     }
     
     private func download(urlString: String, successHandler: (JSON) -> (), errorHandler: (String) -> (), cache: Bool = true) {
