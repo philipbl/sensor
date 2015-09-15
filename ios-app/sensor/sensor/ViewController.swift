@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeSummaryView()
         makeStatusView()
+        makeSummaryView()
         graphPickerChanged()
     }
     
@@ -52,9 +52,23 @@ class ViewController: UIViewController {
     }
     
     private func makeStatusView() {
-        dispatch_async(dispatch_get_main_queue()) {
-            // TODO: Finish this
-            self.updateLabel.text = "Updated: 10:21 AM"
+        func update(date: NSDate) -> () {
+            
+            let formatter = NSDateFormatter()
+            formatter.timeStyle = .ShortStyle
+            let dateString = formatter.stringFromDate(date)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.updateLabel.text = "Updated: " + dateString
+            }
+                
+            ViewController.networkActivity(false)
+        }
+            
+        ViewController.networkActivity(true)
+        getStatus(update) {
+            ViewController.networkActivity(false)
+            println($0)
         }
     }
     

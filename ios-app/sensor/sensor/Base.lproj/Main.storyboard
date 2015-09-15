@@ -184,6 +184,7 @@
                         <outlet property="currentHumidity" destination="qDM-Jt-0Qq" id="D3H-Mg-x1s"/>
                         <outlet property="currentTemperature" destination="8LZ-xG-XaZ" id="JFd-ZJ-tZ6"/>
                         <outlet property="graphPicker" destination="EkS-L2-3mj" id="3mI-Yc-H17"/>
+                        <outlet property="graphView" destination="btY-4a-pt2" id="BXl-aU-9rp"/>
                         <outlet property="maxHumidity" destination="d0p-7x-qSP" id="fvV-GO-2cO"/>
                         <outlet property="maxTemperature" destination="0hE-Ba-pPH" id="VNK-Yn-K8X"/>
                         <outlet property="minHumidity" destination="gh8-VL-s7R" id="JqT-Es-0DV"/>
