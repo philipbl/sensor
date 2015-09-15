@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var graphPicker: UISegmentedControl!
     @IBOutlet weak var graphView: LineChartView!
     
+    var sensorData : SensorData = SensorData()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,9 +45,11 @@ class ViewController: UIViewController {
         case 2:
             makeTwentyFourHourView()
         case 3:
-            makeWeekView()
+//            makeWeekView()
+            makeAverageDayView()
         case 4:
-            makeMonthView()
+//            makeMonthView()
+            makeAverageWeekView()
         default:
             break
         }
@@ -61,15 +65,9 @@ class ViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue()) {
                 self.updateLabel.text = "Updated: " + dateString
             }
-                
-            ViewController.networkActivity(false)
         }
-            
-        ViewController.networkActivity(true)
-        getStatus(update) {
-            ViewController.networkActivity(false)
-            println($0)
-        }
+        
+        runNetworkCommand(sensorData.getStatus, success: update, failure: { println($0) })
     }
     
     private func makeSummaryView() {
@@ -91,15 +89,9 @@ class ViewController: UIViewController {
                 self.maxHumidity.text = "High: " + hMax.formatString + "%"
                 self.minHumidity.text = "Low: " + hMin.formatString + "%"
             }
-            
-            ViewController.networkActivity(false)
         }
         
-        ViewController.networkActivity(true)
-        getSummary(update) {
-            ViewController.networkActivity(false)
-            println($0)
-        }
+        runNetworkCommand(sensorData.getSummary, success: update, failure: { println($0) })
     }
     
     private func makeHourView() {
@@ -128,15 +120,9 @@ class ViewController: UIViewController {
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
                 data["labels"] as! [String])
-            
-            ViewController.networkActivity(false)
         }
         
-        ViewController.networkActivity(true)
-        getAverageDayData(update) {
-            ViewController.networkActivity(false)
-            println($0)
-        }
+        runNetworkCommand(sensorData.getAverageDayData, success: update, failure: { println($0) })
     }
     
     private func makeAverageWeekView() {
@@ -144,18 +130,27 @@ class ViewController: UIViewController {
             createGraph(graphView,
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
-                data["labels"] as! [String])
-            
+                data["labels"] as! [String])            
+        }
+        
+        runNetworkCommand(sensorData.getAverageWeekData, success: update, failure: { println($0) })
+    }
+    
+    private func runNetworkCommand<S, T>(action: (S -> (), T -> ()) -> (), success: S -> (), failure: T -> ()) {
+        func new_success(param: S) -> () {
             ViewController.networkActivity(false)
+            success(param)
+        }
+        
+        func new_failure(param: T) -> () {
+            ViewController.networkActivity(false)
+            failure(param)
         }
         
         ViewController.networkActivity(true)
-        getAverageWeekData(update) {
-            ViewController.networkActivity(false)
-            println($0)
-        }
+        action(new_success, new_failure)
     }
-    
+
     static func networkActivity(visible: Bool) {
         if visible {
             setVisibleCalls++
