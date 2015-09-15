@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.swift
 //  sensor
 //
@@ -12,6 +12,9 @@ import Charts
 class ViewController: UIViewController {
     static var setVisibleCalls = 0
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var updateLabel: UILabel!
+    
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var maxTemperature: UILabel!
     @IBOutlet weak var minTemperature: UILabel!
@@ -20,8 +23,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxHumidity: UILabel!
     @IBOutlet weak var minHumidity: UILabel!
 
-    @IBOutlet weak var lineGraphView: LineChartView!
-    @IBOutlet weak var lineGraphView2: LineChartView!
+    @IBOutlet weak var graphView: LineChartView!
     
     
     override func viewDidLoad() {
@@ -30,8 +32,9 @@ class ViewController: UIViewController {
         
         // TODO: Only update if it is in the view
         updateSummaryView()
-        updateAverageDayView()
-        updateAverageWeekView()
+        updateStatusView()
+//        updateAverageDayView()
+//        updateAverageWeekView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +43,10 @@ class ViewController: UIViewController {
     }
     
     private func updateStatusView() {
-        // Update some label somewhere
+        dispatch_async(dispatch_get_main_queue()) {
+            // TODO: Finish this
+            self.updateLabel.text = "Updated: 10:21 AM"
+        }
     }
     
     private func updateSummaryView() {
@@ -55,12 +61,12 @@ class ViewController: UIViewController {
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.currentTemperature.text = tCurrent.formatString + "°"
-                self.maxTemperature.text = tMax.formatString + "°"
-                self.minTemperature.text = tMin.formatString + "°"
+                self.maxTemperature.text = "High: " + tMax.formatString + "°"
+                self.minTemperature.text = "Low: " + tMin.formatString + "°"
                 
                 self.currentHumidity.text = hCurrent.formatString + "%"
-                self.maxHumidity.text = hMax.formatString + "%"
-                self.minHumidity.text = hMin.formatString + "%"
+                self.maxHumidity.text = "High: " + hMax.formatString + "%"
+                self.minHumidity.text = "Low: " + hMin.formatString + "%"
             }
             
             ViewController.networkActivity(false)
@@ -75,7 +81,7 @@ class ViewController: UIViewController {
     
     private func updateAverageDayView() {
         func update(data: [String: [AnyObject]]) -> () {
-            createGraph(lineGraphView,
+            createGraph(graphView,
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
                 data["labels"] as! [String])
@@ -92,7 +98,7 @@ class ViewController: UIViewController {
     
     private func updateAverageWeekView() {
         func update(data: [String: [AnyObject]]) -> () {
-            createGraph(lineGraphView2,
+            createGraph(graphView,
                 data["humidity"] as! [Double],
                 data["temperature"] as! [Double],
                 data["labels"] as! [String])
