@@ -25,7 +25,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX.X%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDM-Jt-0Qq">
-                                <rect key="frame" x="325.5" y="497.5" width="98.5" height="38.5"/>
+                                <rect key="frame" x="325" y="497" width="98.5" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -42,6 +42,9 @@
                                     <segment title="Week"/>
                                     <segment title="Month"/>
                                 </segments>
+                                <connections>
+                                    <action selector="graphPickerChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="pcY-61-uwD"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: XX:XX PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flu-vA-6x7">
                                 <rect key="frame" x="455" y="27" width="129" height="17"/>
@@ -58,11 +61,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07F-3M-uAK">
-                                <rect key="frame" x="16" y="497.5" width="160.5" height="38.5"/>
+                                <rect key="frame" x="16" y="497" width="160.5" height="38.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEi-sD-s8C">
-                                <rect key="frame" x="424" y="497.5" width="160" height="38.5"/>
+                                <rect key="frame" x="424" y="497" width="160" height="38.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btY-4a-pt2" customClass="LineChartView" customModule="Charts">
@@ -70,31 +73,31 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High: XX.X%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0p-7x-qSP">
-                                <rect key="frame" x="325.5" y="544" width="98.5" height="20.5"/>
+                                <rect key="frame" x="325" y="544" width="98.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low: XX.X%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gh8-VL-s7R">
-                                <rect key="frame" x="325.5" y="571.5" width="98.5" height="20.5"/>
+                                <rect key="frame" x="325" y="571" width="98.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX.X°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LZ-xG-XaZ">
-                                <rect key="frame" x="176.5" y="497.5" width="88.5" height="38.5"/>
+                                <rect key="frame" x="176" y="497" width="88.5" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High: XX.X°" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hE-Ba-pPH">
-                                <rect key="frame" x="176.5" y="544" width="88.5" height="20.5"/>
+                                <rect key="frame" x="176" y="544" width="88.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low: XX.X°" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NiS-9n-mbR">
-                                <rect key="frame" x="176.5" y="573" width="88.5" height="20.5"/>
+                                <rect key="frame" x="176" y="573" width="88.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -180,6 +183,7 @@
                     <connections>
                         <outlet property="currentHumidity" destination="qDM-Jt-0Qq" id="D3H-Mg-x1s"/>
                         <outlet property="currentTemperature" destination="8LZ-xG-XaZ" id="JFd-ZJ-tZ6"/>
+                        <outlet property="graphPicker" destination="EkS-L2-3mj" id="3mI-Yc-H17"/>
                         <outlet property="maxHumidity" destination="d0p-7x-qSP" id="fvV-GO-2cO"/>
                         <outlet property="maxTemperature" destination="0hE-Ba-pPH" id="VNK-Yn-K8X"/>
                         <outlet property="minHumidity" destination="gh8-VL-s7R" id="JqT-Es-0DV"/>

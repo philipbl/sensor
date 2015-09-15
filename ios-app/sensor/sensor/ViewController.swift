@@ -23,33 +23,42 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxHumidity: UILabel!
     @IBOutlet weak var minHumidity: UILabel!
 
+    @IBOutlet weak var graphPicker: UISegmentedControl!
     @IBOutlet weak var graphView: LineChartView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        // TODO: Only update if it is in the view
-        updateSummaryView()
-        updateStatusView()
-//        updateAverageDayView()
-//        updateAverageWeekView()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        makeSummaryView()
+        makeStatusView()
+        graphPickerChanged()
     }
     
-    private func updateStatusView() {
+    @IBAction func graphPickerChanged() {
+        switch graphPicker.selectedSegmentIndex {
+        case 0:
+            makeHourView()
+        case 1:
+            makeTwelveHourView()
+        case 2:
+            makeTwentyFourHourView()
+        case 3:
+            makeWeekView()
+        case 4:
+            makeMonthView()
+        default:
+            break
+        }
+    }
+    
+    private func makeStatusView() {
         dispatch_async(dispatch_get_main_queue()) {
             // TODO: Finish this
             self.updateLabel.text = "Updated: 10:21 AM"
         }
     }
     
-    private func updateSummaryView() {
+    private func makeSummaryView() {
         func update(tempData: [String: Double], humData: [String: Double]) -> () {
             let tCurrent = tempData["current"]!
             let tMax = tempData["max"]!
@@ -79,7 +88,27 @@ class ViewController: UIViewController {
         }
     }
     
-    private func updateAverageDayView() {
+    private func makeHourView() {
+        
+    }
+    
+    private func makeTwelveHourView() {
+        
+    }
+    
+    private func makeTwentyFourHourView() {
+        
+    }
+    
+    private func makeWeekView() {
+        
+    }
+    
+    private func makeMonthView() {
+        
+    }
+    
+    private func makeAverageDayView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
                 data["humidity"] as! [Double],
@@ -96,7 +125,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private func updateAverageWeekView() {
+    private func makeAverageWeekView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
                 data["humidity"] as! [Double],
