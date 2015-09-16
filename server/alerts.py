@@ -23,10 +23,14 @@ class Alerts(object):
         logging.info("Getting lastest data: %s", data)
         return data
 
-    def _get_past_alerts(self):
+    def _get_stored_alerts(self):
         logging.info("Getting stored alerts")
 
         results = self.fb.get('', self.database)
+
+        if results is None:
+            logging.info("There are no stored alerts")
+            return pd.DataFrame([], columns=['type', 'bound', 'direction', 'email', 'active'])
 
         data = []
         for key, value in results.items():
@@ -58,19 +62,44 @@ class Alerts(object):
         for i in range(len(df)):
             series = df.ix[i]
 
-            if series.direction(data[series.type], series.bound) and \
-               not series.active:
-               df.loc[i, 'active'] = True
-               self._trigger_alert(series, data)
+            if series.direction(data[series.type], series.bound):
+                logging.info("Condition has been met!")
+
+                if series.active:
+                    logging.info("Not triggering alert because it was already triggered")
+                else:
+                    df.loc[i, 'active'] = True
+                    self._trigger_alert(series, data)
             else:
+                logging.info("Turning off active")
                 df.loc[i, 'active'] = False
+
+    def _find_alert(self, email, type, bound, direction):
+        if self.alerts is None:
+            return []
+
+        df = self.alerts
+        direction = operator.gt if direction == 'gt' else operator.lt
+
+        alert = df[(df.type == type) &
+                   (df.bound == bound) &
+                   (df.direction == direction) &
+                   (df.email == email)]
+
+        return alert
 
     def run(self):
         alerts = self._trigger_alerts()
-        # threading.Timer(60, self.run).start()
+        threading.Timer(60, self.run).start()
 
     def add_alert(self, email, type, bound, direction):
         logging.info("Adding new alert: %s %s %s %s", email, type, bound, direction)
+
+        bound = float(bound)
+        alert = self._find_alert(email, type, bound, direction)
+        if len(alert) > 0:
+            logging.info("Alert is already contained in database")
+            return
 
         # Store alert in database
         result = self.fb.post(self.database,
