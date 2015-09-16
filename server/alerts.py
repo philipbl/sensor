@@ -69,22 +69,25 @@ class Alerts(object):
         self.alerts = self.alerts.append(s)
 
     def delete_alert(self, email, type, bound, direction):
-        # TODO: Remove from database
+        logging.info("Deleting alert: %s %s %s %s", email, type, bound, direction)
 
-        df = self.alerts
-        self.alerts = df[(df.type != type) |
-                         (df.bound != bound) |
-                         (df.direction != direction) |
-                         (df.email != email)]
+        bound = float(bound)
+        alert = self._find_alert(email, type, bound, direction)
+        if len(alert) == 0:
+            logging.info("There is no alert to delete")
+            return
 
+        # Remove alert from database
+        self.fb.delete(self.database, alert.index[0])
 
-alerts = Alerts()
-# alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 70, 'gt')
-alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 80, 'gt')
-# alerts.add_alert("philiplundrigan@gmail.com", 'temperature', 60, 'lt')
-print(alerts.alerts)
-# alerts.delete_alert("philiplundrigan@gmail.com", 'temperature', 70, 'gt')
-# alerts.delete_alert("philiplundrigan@gmail.com", 'temperature', 60, 'lt')
-# print(alerts.alerts)
-# alerts.run()
+        # Remove alert locally
+        self.alerts = self.alerts.drop([alert.index[0]])
 
+        logging.info("New alerts:\n %s", self.alerts)
+
+    def clear_alerts(self):
+        # Clear database
+        self.fb.delete(self.database, None)
+
+        # Clear locally
+        self.alerts = pd.DataFrame([], columns=['type', 'bound', 'direction', 'email', 'active'])
