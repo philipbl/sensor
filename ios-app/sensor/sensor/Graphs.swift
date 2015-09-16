@@ -25,11 +25,11 @@ func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [
     }
     
     // Convert from Double to ChartDataEntry
-    let humData = map(enumerate(humidityData)) { (index, value) in
+    let humData = map(humidityData.enumerate()) { (index, value) in
         return ChartDataEntry(value: value, xIndex: index)
     }
     
-    let tempData = map(enumerate(temperatureData)) { (index, value) in
+    let tempData = map(temperatureData.enumerate()) { (index, value) in
         return ChartDataEntry(value: value, xIndex: index)
     }
     
@@ -64,7 +64,7 @@ func datesToLabels(dates: [NSDate]) -> [String] {
     formatter.timeStyle = .ShortStyle
     
 
-    return map(dates, { date in
+    return dates.map({ date in
         return formatter.stringFromDate(date)
     })
 }

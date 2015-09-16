@@ -65,7 +65,7 @@ class ViewController: UIViewController {
             }
         }
         
-        runNetworkCommand(sensorData.getStatus, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getStatus, success: update, failure: { print($0) })
     }
     
     private func makeSummaryView() {
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
             }
         }
         
-        runNetworkCommand(sensorData.getSummary, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getSummary, success: update, failure: { print($0) })
     }
     
     private func makeHourView() {
@@ -100,7 +100,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [NSDate])
         }
         
-        runNetworkCommand(sensorData.getHourData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getHourData, success: update, failure: { print($0) })
     }
     
     private func makeTwelveHourView() {
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [NSDate])
         }
         
-        runNetworkCommand(sensorData.getTwelveHourData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getTwelveHourData, success: update, failure: { print($0) })
     }
     
     private func makeTwentyFourHourView() {
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [NSDate])
         }
         
-        runNetworkCommand(sensorData.getTwentyFourHourData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getTwentyFourHourData, success: update, failure: { print($0) })
     }
     
     private func makeWeekView() {
@@ -133,7 +133,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [NSDate])
         }
         
-        runNetworkCommand(sensorData.getWeekData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getWeekData, success: update, failure: { print($0) })
     }
     
     private func makeMonthView() {
@@ -144,7 +144,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [NSDate])
         }
         
-        runNetworkCommand(sensorData.getMonthData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getMonthData, success: update, failure: { print($0) })
     }
     
     private func makeAverageDayView() {
@@ -155,7 +155,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [String])
         }
         
-        runNetworkCommand(sensorData.getAverageDayData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getAverageDayData, success: update, failure: { print($0) })
     }
     
     private func makeAverageWeekView() {
@@ -166,7 +166,7 @@ class ViewController: UIViewController {
                 data["labels"] as! [String])            
         }
         
-        runNetworkCommand(sensorData.getAverageWeekData, success: update, failure: { println($0) })
+        runNetworkCommand(sensorData.getAverageWeekData, success: update, failure: { print($0) })
     }
     
     private func runNetworkCommand<S, T>(action: (S -> (), T -> ()) -> (), success: S -> (), failure: T -> ()) {
