@@ -14,7 +14,11 @@ class Alerts(object):
 
     def _get_latest_data(self):
         results = self.fb.get('', 'measurements', params={'orderBy': '"date"', 'limitToLast': 1})
-        return list(results.values())[0]
+        data = list(results.values())[0]
+        data['temperature'] = data['temperature'] * 9/5 + 32
+
+        logging.info("Getting lastest data: %s", data)
+        return data
 
     def _get_past_alerts(self):
         results = self.fb.get('', self.database)
