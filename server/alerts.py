@@ -6,17 +6,18 @@ import threading
 import operator
 
 class Alerts(object):
-    def __init__(self):
+    def __init__(self, database="alerts"):
         super(Alerts, self).__init__()
         self.fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
-        self.alerts = self._get_past_alerts()
+        self.database = database
+        self.alerts = self._get_stored_alerts()
 
     def _get_latest_data(self):
         results = self.fb.get('', 'measurements', params={'orderBy': '"date"', 'limitToLast': 1})
         return list(results.values())[0]
 
     def _get_past_alerts(self):
-        results = self.fb.get('', 'alerts')
+        results = self.fb.get('', self.database)
 
         data = []
         for key, value in results.items():
@@ -57,7 +58,7 @@ class Alerts(object):
 
     def add_alert(self, email, type, bound, direction):
         # Store alert in database
-        result = self.fb.post('alerts',
+        result = self.fb.post(self.database,
                              {"email": email, "type": type, "bound": bound, "direction": direction})
 
         # Keep track of alert locally
