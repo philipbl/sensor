@@ -9,8 +9,8 @@
 import Foundation
 
 class SensorData {
-    let baseURL = "http://localhost:5000/"
-//    let baseURL = "https://still-sands-8003.herokuapp.com/"
+//    let baseURL = "http://localhost:5000/"
+    let baseURL = "https://still-sands-8003.herokuapp.com/"
     
     var cachedData = [String:JSON]()
 
@@ -137,7 +137,7 @@ class SensorData {
     private func convertArrayData(data: JSON, converter: (JSON) -> AnyObject) -> [AnyObject] {
         var list = [AnyObject]()
         
-        for (index, subJson): (String, JSON) in data {
+        for (_, subJson): (String, JSON) in data {
             list.append(converter(subJson))
         }
         
@@ -160,7 +160,7 @@ class SensorData {
             if let httpResponse = response as? NSHTTPURLResponse {
                 
                 if httpResponse.statusCode == 200 {
-                    let json = JSON(data: data)
+                    let json = JSON(data: data!)
                     
                     if cache {
                         self.cachedData[urlString] = json

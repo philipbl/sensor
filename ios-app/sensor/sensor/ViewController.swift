@@ -95,9 +95,9 @@ class ViewController: UIViewController {
     private func makeHourView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [NSDate])
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [NSDate])
         }
         
         runNetworkCommand(sensorData.getHourData, success: update, failure: { print($0) })
@@ -106,9 +106,9 @@ class ViewController: UIViewController {
     private func makeTwelveHourView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [NSDate])
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [NSDate])
         }
         
         runNetworkCommand(sensorData.getTwelveHourData, success: update, failure: { print($0) })
@@ -117,9 +117,9 @@ class ViewController: UIViewController {
     private func makeTwentyFourHourView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [NSDate])
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [NSDate])
         }
         
         runNetworkCommand(sensorData.getTwentyFourHourData, success: update, failure: { print($0) })
@@ -128,9 +128,9 @@ class ViewController: UIViewController {
     private func makeWeekView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [NSDate])
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [NSDate])
         }
         
         runNetworkCommand(sensorData.getWeekData, success: update, failure: { print($0) })
@@ -139,9 +139,9 @@ class ViewController: UIViewController {
     private func makeMonthView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [NSDate])
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [NSDate])
         }
         
         runNetworkCommand(sensorData.getMonthData, success: update, failure: { print($0) })
@@ -150,9 +150,9 @@ class ViewController: UIViewController {
     private func makeAverageDayView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [String])
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [String])
         }
         
         runNetworkCommand(sensorData.getAverageDayData, success: update, failure: { print($0) })
@@ -161,9 +161,9 @@ class ViewController: UIViewController {
     private func makeAverageWeekView() {
         func update(data: [String: [AnyObject]]) -> () {
             createGraph(graphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [String])            
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [String])            
         }
         
         runNetworkCommand(sensorData.getAverageWeekData, success: update, failure: { print($0) })
