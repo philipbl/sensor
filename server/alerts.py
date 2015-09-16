@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import threading
 import operator
+import logging
+
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 class Alerts(object):
     def __init__(self, database="alerts"):
@@ -21,6 +24,8 @@ class Alerts(object):
         return data
 
     def _get_past_alerts(self):
+        logging.info("Getting stored alerts")
+
         results = self.fb.get('', self.database)
 
         data = []
@@ -32,9 +37,12 @@ class Alerts(object):
 
         df = pd.DataFrame(data)
         df = df.set_index('name')
+
+        logging.info("Stored alerts:\n %s", df)
         return df
 
     def _trigger_alert(self, trigger, current):
+        logging.info("Triggering an alert!")
         print("Send email to {} saying:".format(trigger.email))
         print("{type} has gone {direction} {bound} ({current}).".format(type=trigger.type,
                                                                         direction="above" if trigger.direction == operator.gt else "below",
@@ -43,6 +51,7 @@ class Alerts(object):
         print()
 
     def _trigger_alerts(self):
+        logging.info("Checking if any alerts triggered")
         data = self._get_latest_data()
         df = self.alerts
 
@@ -61,6 +70,8 @@ class Alerts(object):
         # threading.Timer(60, self.run).start()
 
     def add_alert(self, email, type, bound, direction):
+        logging.info("Adding new alert: %s %s %s %s", email, type, bound, direction)
+
         # Store alert in database
         result = self.fb.post(self.database,
                              {"email": email, "type": type, "bound": bound, "direction": direction})
@@ -71,6 +82,8 @@ class Alerts(object):
                       index=['type', 'bound', 'direction', 'email', 'active'],
                       name=result['name'])
         self.alerts = self.alerts.append(s)
+
+        logging.info("New alerts:\n %s", self.alerts)
 
     def delete_alert(self, email, type, bound, direction):
         logging.info("Deleting alert: %s %s %s %s", email, type, bound, direction)
