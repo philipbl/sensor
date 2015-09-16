@@ -45,11 +45,9 @@ class ViewController: UIViewController {
         case 2:
             makeTwentyFourHourView()
         case 3:
-//            makeWeekView()
-            makeAverageDayView()
+            makeWeekView()
         case 4:
-//            makeMonthView()
-            makeAverageWeekView()
+            makeMonthView()
         default:
             break
         }
@@ -95,23 +93,58 @@ class ViewController: UIViewController {
     }
     
     private func makeHourView() {
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(graphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [NSDate])
+        }
         
+        runNetworkCommand(sensorData.getHourData, success: update, failure: { println($0) })
     }
     
     private func makeTwelveHourView() {
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(graphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [NSDate])
+        }
         
+        runNetworkCommand(sensorData.getTwelveHourData, success: update, failure: { println($0) })
     }
     
     private func makeTwentyFourHourView() {
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(graphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [NSDate])
+        }
         
+        runNetworkCommand(sensorData.getTwentyFourHourData, success: update, failure: { println($0) })
     }
     
     private func makeWeekView() {
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(graphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [NSDate])
+        }
         
+        runNetworkCommand(sensorData.getWeekData, success: update, failure: { println($0) })
     }
     
     private func makeMonthView() {
+        func update(data: [String: [AnyObject]]) -> () {
+            createGraph(graphView,
+                data["humidity"] as! [Double],
+                data["temperature"] as! [Double],
+                data["labels"] as! [NSDate])
+        }
         
+        runNetworkCommand(sensorData.getMonthData, success: update, failure: { println($0) })
     }
     
     private func makeAverageDayView() {
