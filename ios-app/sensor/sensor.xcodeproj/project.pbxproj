@@ -14,10 +14,10 @@
 		CC4ED2601B978E4A00C00568 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC4ED25E1B978E4A00C00568 /* LaunchScreen.xib */; };
 		CC4ED26C1B978E4A00C00568 /* sensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED26B1B978E4A00C00568 /* sensorTests.swift */; };
 		CC4ED2761B978EA300C00568 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED2751B978EA300C00568 /* SensorData.swift */; };
-		CC4ED2781B978EDB00C00568 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */; };
 		CC78A50E1B98B948006F1844 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78A50D1B98B948006F1844 /* Graphs.swift */; };
-		CCE5B2F41B99444600F32C56 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE5B2F31B99443D00F32C56 /* Charts.framework */; };
-		CCE5B2F51B99444600F32C56 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCE5B2F31B99443D00F32C56 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCA7BCDC1BAA11A80095D5B2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7BCDB1BAA11A80095D5B2 /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
+		CCA7BCEE1BAA126E0095D5B2 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCA7BCED1BAA12660095D5B2 /* Charts.framework */; };
+		CCA7BCEF1BAA126E0095D5B2 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CCA7BCED1BAA12660095D5B2 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,16 +28,16 @@
 			remoteGlobalIDString = CC4ED24F1B978E4900C00568;
 			remoteInfo = sensor;
 		};
-		CCE5B2F21B99443D00F32C56 /* PBXContainerItemProxy */ = {
+		CCA7BCEC1BAA12660095D5B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CCE5B2EE1B99443D00F32C56 /* Charts.xcodeproj */;
+			containerPortal = CCA7BCE31BAA12620095D5B2 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
 			remoteInfo = Charts;
 		};
-		CCE5B2F61B99444600F32C56 /* PBXContainerItemProxy */ = {
+		CCA7BCF01BAA126E0095D5B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CCE5B2EE1B99443D00F32C56 /* Charts.xcodeproj */;
+			containerPortal = CCA7BCE31BAA12620095D5B2 /* Charts.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 5BA8EC3F1A9D14DC00CE82E1;
 			remoteInfo = Charts;
@@ -51,7 +51,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CCE5B2F51B99444600F32C56 /* Charts.framework in Embed Frameworks */,
+				CCA7BCEF1BAA126E0095D5B2 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,9 +70,9 @@
 		CC4ED26A1B978E4A00C00568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC4ED26B1B978E4A00C00568 /* sensorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sensorTests.swift; sourceTree = "<group>"; };
 		CC4ED2751B978EA300C00568 /* SensorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
-		CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		CC78A50D1B98B948006F1844 /* Graphs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
-		CCE5B2EE1B99443D00F32C56 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../ios-charts/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
+		CCA7BCDB1BAA11A80095D5B2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CCA7BCE31BAA12620095D5B2 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../ios-charts/Charts/Charts.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE5B2F41B99444600F32C56 /* Charts.framework in Frameworks */,
+				CCA7BCEE1BAA126E0095D5B2 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 		CC4ED2471B978E4900C00568 = {
 			isa = PBXGroup;
 			children = (
-				CCE5B2EE1B99443D00F32C56 /* Charts.xcodeproj */,
+				CCA7BCE31BAA12620095D5B2 /* Charts.xcodeproj */,
 				CC4ED2521B978E4900C00568 /* sensor */,
 				CC4ED2681B978E4A00C00568 /* sensorTests */,
 				CC4ED2511B978E4900C00568 /* Products */,
@@ -119,8 +119,8 @@
 				CC4ED2551B978E4900C00568 /* AppDelegate.swift */,
 				CC4ED2571B978E4900C00568 /* ViewController.swift */,
 				CC78A50D1B98B948006F1844 /* Graphs.swift */,
+				CCA7BCDB1BAA11A80095D5B2 /* SwiftyJSON.swift */,
 				CC4ED2751B978EA300C00568 /* SensorData.swift */,
-				CC4ED2771B978EDB00C00568 /* SwiftyJSON.swift */,
 				CC4ED2591B978E4A00C00568 /* Main.storyboard */,
 				CC4ED25C1B978E4A00C00568 /* Images.xcassets */,
 				CC4ED25E1B978E4A00C00568 /* LaunchScreen.xib */,
@@ -154,10 +154,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CCE5B2EF1B99443D00F32C56 /* Products */ = {
+		CCA7BCE91BAA12660095D5B2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CCE5B2F31B99443D00F32C56 /* Charts.framework */,
+				CCA7BCED1BAA12660095D5B2 /* Charts.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,7 +177,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				CCE5B2F71B99444600F32C56 /* PBXTargetDependency */,
+				CCA7BCF11BAA126E0095D5B2 /* PBXTargetDependency */,
 			);
 			name = sensor;
 			productName = sensor;
@@ -208,7 +208,9 @@
 		CC4ED2481B978E4900C00568 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Philip Lundrigan";
 				TargetAttributes = {
 					CC4ED24F1B978E4900C00568 = {
@@ -233,8 +235,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CCE5B2EF1B99443D00F32C56 /* Products */;
-					ProjectRef = CCE5B2EE1B99443D00F32C56 /* Charts.xcodeproj */;
+					ProductGroup = CCA7BCE91BAA12660095D5B2 /* Products */;
+					ProjectRef = CCA7BCE31BAA12620095D5B2 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -246,11 +248,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		CCE5B2F31B99443D00F32C56 /* Charts.framework */ = {
+		CCA7BCED1BAA12660095D5B2 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = CCE5B2F21B99443D00F32C56 /* PBXContainerItemProxy */;
+			remoteRef = CCA7BCEC1BAA12660095D5B2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -283,8 +285,8 @@
 				CC4ED2581B978E4900C00568 /* ViewController.swift in Sources */,
 				CC4ED2561B978E4900C00568 /* AppDelegate.swift in Sources */,
 				CC78A50E1B98B948006F1844 /* Graphs.swift in Sources */,
+				CCA7BCDC1BAA11A80095D5B2 /* SwiftyJSON.swift in Sources */,
 				CC4ED2761B978EA300C00568 /* SensorData.swift in Sources */,
-				CC4ED2781B978EDB00C00568 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,10 +306,10 @@
 			target = CC4ED24F1B978E4900C00568 /* sensor */;
 			targetProxy = CC4ED2661B978E4A00C00568 /* PBXContainerItemProxy */;
 		};
-		CCE5B2F71B99444600F32C56 /* PBXTargetDependency */ = {
+		CCA7BCF11BAA126E0095D5B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Charts;
-			targetProxy = CCE5B2F61B99444600F32C56 /* PBXContainerItemProxy */;
+			targetProxy = CCA7BCF01BAA126E0095D5B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -352,6 +354,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -418,8 +421,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = sensor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.lundrigan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -428,8 +433,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = sensor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.lundrigan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -448,6 +455,7 @@
 				);
 				INFOPLIST_FILE = sensorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.lundrigan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sensor.app/sensor";
 			};
@@ -463,6 +471,7 @@
 				);
 				INFOPLIST_FILE = sensorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.lundrigan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sensor.app/sensor";
 			};

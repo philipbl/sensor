@@ -9,7 +9,7 @@
 import Foundation
 
 class SensorData {
-    //let baseURL = "http://localhost:5000/"
+//    let baseURL = "http://localhost:5000/"
     let baseURL = "https://still-sands-8003.herokuapp.com/"
     
     var cachedData = [String:JSON]()
@@ -29,7 +29,7 @@ class SensorData {
         func convertData(data: JSON) -> [String: Double] {
             var newData = [String: Double]()
             
-            for (key: String, subJson: JSON) in data {
+            for (key, subJson): (String, JSON) in data {
                 newData[key] = subJson.doubleValue
             }
             
@@ -119,15 +119,15 @@ class SensorData {
         let humidityArray = data["humidity"].arrayValue
         let temperatureArray = data["temperature"].arrayValue
         
-        let humidityData = map(humidityArray, { data in
+        let humidityData = humidityArray.map({ data in
             return data["y"].doubleValue
         })
         
-        let temperatureData = map(temperatureArray, { data in
+        let temperatureData = temperatureArray.map({ data in
             return data["y"].doubleValue
         })
         
-        let labels = map(temperatureArray, { data in
+        let labels = temperatureArray.map({ data in
             return self.convertDate(data["x"].doubleValue)
         })
         
@@ -137,7 +137,7 @@ class SensorData {
     private func convertArrayData(data: JSON, converter: (JSON) -> AnyObject) -> [AnyObject] {
         var list = [AnyObject]()
         
-        for (index: String, subJson: JSON) in data {
+        for (_, subJson): (String, JSON) in data {
             list.append(converter(subJson))
         }
         
@@ -160,7 +160,7 @@ class SensorData {
             if let httpResponse = response as? NSHTTPURLResponse {
                 
                 if httpResponse.statusCode == 200 {
-                    let json = JSON(data: data)
+                    let json = JSON(data: data!)
                     
                     if cache {
                         self.cachedData[urlString] = json
