@@ -48,10 +48,14 @@ func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [
     view.descriptionText = ""
     view.rightAxis.enabled = false
     view.legend.enabled = false
+    view.leftAxis.startAtZeroEnabled = false;
     view.xAxis.labelPosition = .Bottom
     view.xAxis.drawGridLinesEnabled = false;
-    // view.animate(xAxisDuration: 0.5, yAxisDuration: 0)
     view.drawGridBackgroundEnabled = false;
+    
+    
+    // TODO: Adjust zoom everytime someone creates a new graph
+    // TODO: Initial yaxis starts at zero
 }
 
 func datesToLabels(dates: [NSDate]) -> [String] {
