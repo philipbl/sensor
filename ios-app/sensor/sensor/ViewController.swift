@@ -39,14 +39,12 @@ class ViewController: UIViewController {
     @IBAction func graphPickerChanged() {
         switch graphPicker.selectedSegmentIndex {
         case 0:
-            makeHourView()
-        case 1:
             makeTwelveHourView()
-        case 2:
+        case 1:
             makeTwentyFourHourView()
-        case 3:
+        case 2:
             makeWeekView()
-        case 4:
+        case 3:
             makeMonthView()
         default:
             break
