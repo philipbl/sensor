@@ -9,9 +9,10 @@ import logging
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 class Alerts(object):
-    def __init__(self, database="alerts"):
+    def __init__(self, triggered_func, database="alerts"):
         super(Alerts, self).__init__()
         self.fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
+        self.triggered_func = triggered_func
         self.database = database
         self.alerts = self._get_stored_alerts()
 
@@ -47,12 +48,16 @@ class Alerts(object):
 
     def _trigger_alert(self, trigger, current):
         logging.info("Triggering an alert!")
-        print("Send email to {} saying:".format(trigger.id))
-        print("{type} has gone {direction} {bound} ({current}).".format(type=trigger.type,
-                                                                        direction="above" if trigger.direction == operator.gt else "below",
-                                                                        bound=trigger.bound,
-                                                                        current=current[trigger.type]))
-        print()
+
+        if self.triggered_func is None:
+            logging.debug("triggered_func is None...")
+            return
+
+        self.triggered_func(trigger.id,
+                            trigger.type,
+                            trigger.bound,
+                            'gt' if trigger.direction == operator.gt else 'lt',
+                            current)
 
     def _trigger_alerts(self):
         logging.info("Checking if any alerts triggered")
@@ -132,6 +137,8 @@ class Alerts(object):
         logging.info("New alerts:\n %s", self.alerts)
 
     def clear_alerts(self):
+        logging.info("Clearing alerts")
+
         # Clear database
         self.fb.delete(self.database, None)
 
