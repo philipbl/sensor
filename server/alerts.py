@@ -11,6 +11,10 @@ logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 class Alerts(object):
     def __init__(self, triggered_func, database="alerts"):
         super(Alerts, self).__init__()
+
+        if not hasattr(triggered_func, '__call__'):
+            raise Exception("triggered_func must be callable")
+
         self.fb = firebase.FirebaseApplication('https://temperature-sensor.firebaseio.com', None)
         self.triggered_func = triggered_func
         self.database = database
