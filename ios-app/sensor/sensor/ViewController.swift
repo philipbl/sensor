@@ -80,12 +80,12 @@ class ViewController: UIViewController {
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.currentTemperature.text = tCurrent.formatString + "°"
-                self.maxTemperature.text = "High: " + tMax.formatString + "°"
-                self.minTemperature.text = "Low: " + tMin.formatString + "°"
+                self.maxTemperature.text = tMax.formatString + "°"
+                self.minTemperature.text = tMin.formatString + "°"
                 
                 self.currentHumidity.text = hCurrent.formatString + "%"
-                self.maxHumidity.text = "High: " + hMax.formatString + "%"
-                self.minHumidity.text = "Low: " + hMin.formatString + "%"
+                self.maxHumidity.text = hMax.formatString + "%"
+                self.minHumidity.text = hMin.formatString + "%"
             }
         }
         
