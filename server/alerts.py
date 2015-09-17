@@ -6,7 +6,7 @@ import threading
 import operator
 import logging
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+# logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 class Alerts(object):
     def __init__(self, triggered_func, database="alerts"):
