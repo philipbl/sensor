@@ -93,80 +93,40 @@ class ViewController: UIViewController {
     }
     
     private func makeHourView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
-                humidityData: data["humidity"] as! [Double],
-                temperatureData: data["temperature"] as! [Double],
-                labels: data["labels"] as! [NSDate])
-        }
-        
-        runNetworkCommand(sensorData.getHourData, success: update, failure: { print($0) })
+        runNetworkCommand(sensorData.getHourData, success: updateGraph, failure: { print($0) })
     }
     
     private func makeTwelveHourView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
-                humidityData: data["humidity"] as! [Double],
-                temperatureData: data["temperature"] as! [Double],
-                labels: data["labels"] as! [NSDate])
-        }
-        
-        runNetworkCommand(sensorData.getTwelveHourData, success: update, failure: { print($0) })
+        runNetworkCommand(sensorData.getTwelveHourData, success: updateGraph, failure: { print($0) })
     }
     
     private func makeTwentyFourHourView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
-                humidityData: data["humidity"] as! [Double],
-                temperatureData: data["temperature"] as! [Double],
-                labels: data["labels"] as! [NSDate])
-        }
-        
-        runNetworkCommand(sensorData.getTwentyFourHourData, success: update, failure: { print($0) })
+        runNetworkCommand(sensorData.getTwentyFourHourData, success: updateGraph, failure: { print($0) })
     }
     
     private func makeWeekView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
-                humidityData: data["humidity"] as! [Double],
-                temperatureData: data["temperature"] as! [Double],
-                labels: data["labels"] as! [NSDate])
-        }
-        
-        runNetworkCommand(sensorData.getWeekData, success: update, failure: { print($0) })
+        runNetworkCommand(sensorData.getWeekData, success: updateGraph, failure: { print($0) })
     }
     
     private func makeMonthView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
+        runNetworkCommand(sensorData.getMonthData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeAverageDayView() {
+        runNetworkCommand(sensorData.getAverageDayData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeAverageWeekView() {
+        runNetworkCommand(sensorData.getAverageWeekData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func updateGraph(data: [String: [AnyObject]]) {
+        dispatch_async(dispatch_get_main_queue()) {
+            createGraph(self.graphView,
                 humidityData: data["humidity"] as! [Double],
                 temperatureData: data["temperature"] as! [Double],
                 labels: data["labels"] as! [NSDate])
         }
-        
-        runNetworkCommand(sensorData.getMonthData, success: update, failure: { print($0) })
-    }
-    
-    private func makeAverageDayView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
-                humidityData: data["humidity"] as! [Double],
-                temperatureData: data["temperature"] as! [Double],
-                labels: data["labels"] as! [String])
-        }
-        
-        runNetworkCommand(sensorData.getAverageDayData, success: update, failure: { print($0) })
-    }
-    
-    private func makeAverageWeekView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(graphView,
-                humidityData: data["humidity"] as! [Double],
-                temperatureData: data["temperature"] as! [Double],
-                labels: data["labels"] as! [String])            
-        }
-        
-        runNetworkCommand(sensorData.getAverageWeekData, success: update, failure: { print($0) })
     }
     
     private func runNetworkCommand<S, T>(action: (S -> (), T -> ()) -> (), success: S -> (), failure: T -> ()) {
