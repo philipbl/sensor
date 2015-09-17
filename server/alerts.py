@@ -68,11 +68,11 @@ class Alerts(object):
                 if series.active:
                     logging.info("Not triggering alert because it was already triggered")
                 else:
-                    df.loc[i, 'active'] = True
+                    self.alerts.loc[series.name, 'active'] = True
                     self._trigger_alert(series, data)
             else:
                 logging.info("Turning off active")
-                df.loc[i, 'active'] = False
+                self.alerts.loc[series.name, 'active'] = False
 
     def _find_alert(self, id, type, bound, direction):
         if self.alerts is None:
