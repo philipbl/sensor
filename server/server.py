@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask.ext.cors import CORS
 from datetime import datetime, timedelta
 from firebase import firebase
+from alerts import Alerts
 import numpy as np
 import pandas as pd
 import dateutil.parser
@@ -74,10 +75,18 @@ def format_response(data, x_func, y_func):
     return new_data
 
 
+def triggered_alerts(id, type_, bound, direction, data):
+    print(id, type_, bound, direction, data)
+
+
+
+# Set up alerts
+alerts = Alerts(triggered_alerts)
+
+# Set up web server
 app = Flask(__name__)
 CORS(app)
 data, get_more_data = get_data()
-
 
 @app.route("/sensor/status")
 def status():
@@ -145,6 +154,34 @@ def average(time_scale):
         new_response[c] = list(response[c])
 
     return jsonify(**new_response)
+
+
+@app.route("/sensor/alert", methods=['PUT', 'DELETE'])
+def setup_alerts():
+    email = request.args.get('email')
+    type_ = request.args.get('type')
+    bound = request.args.get('bound')
+    direction = request.args.get('direction')
+
+    if email is None or type_ is None or bound is None or direction is None:
+        return "Error: email, type, bound, and direction must be given"
+
+    if direction != 'gt' and direction != 'lt':
+        return "Error: direction can only be \"gt\" or \"lt\""
+
+    try:
+        bound = float(bound)
+    except:
+        return "Error: bound must be a float"
+
+    if request.method == 'PUT':
+        alerts.add_alert(email, type_, bound, direction)
+    elif request.method == 'DELETE':
+        alerts.delete_alert(email, type_, bound, direction)
+
+    return "done"
+
+
 
 
 if __name__ == '__main__':
