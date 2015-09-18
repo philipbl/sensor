@@ -28,8 +28,8 @@
                                     <rect key="frame" x="351" y="84" width="98" height="38.5"/>
                                 </variation>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EkS-L2-3mj">
-                                <rect key="frame" x="138" y="63" width="324" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EkS-L2-3mj">
+                                <rect key="frame" x="170.5" y="63" width="259" height="29"/>
                                 <segments>
                                     <segment title="12 Hour"/>
                                     <segment title="24 Hour"/>
@@ -46,12 +46,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWv-i5-M1l">
-                                <rect key="frame" x="462" y="63" width="118" height="28"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWv-i5-M1l">
+                                <rect key="frame" x="429.5" y="63" width="150.5" height="28"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QlJ-ws-YPD">
-                                <rect key="frame" x="20" y="63" width="118" height="28"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QlJ-ws-YPD">
+                                <rect key="frame" x="20" y="63" width="150.5" height="28"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07F-3M-uAK">

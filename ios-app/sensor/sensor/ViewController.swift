@@ -28,12 +28,17 @@ class ViewController: UIViewController {
     
     var sensorData : SensorData = SensorData()
     
+    var GlobalBackgroundQueue: dispatch_queue_t {
+        return dispatch_get_global_queue(Int(QOS_CLASS_BACKGROUND.rawValue), 0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         makeStatusView()
         makeSummaryView()
         graphPickerChanged()
+        statusUpdater()
     }
     
     @IBAction func graphPickerChanged() {
@@ -48,6 +53,18 @@ class ViewController: UIViewController {
             makeMonthView()
         default:
             break
+        }
+    }
+    
+    private func statusUpdater() {
+        let delayInSeconds = 60.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delay, GlobalBackgroundQueue) {
+            self.makeStatusView()
+            self.makeSummaryView()
+            
+            self.statusUpdater()
         }
     }
     
