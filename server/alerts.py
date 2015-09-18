@@ -6,7 +6,7 @@ import threading
 import operator
 import logging
 
-# logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class Alerts(object):
     def __init__(self, triggered_func, database="alerts"):
@@ -25,16 +25,16 @@ class Alerts(object):
         data = list(results.values())[0]
         data['temperature'] = data['temperature'] * 9/5 + 32
 
-        logging.info("Getting lastest data: %s", data)
+        logger.info("Getting lastest data: %s", data)
         return data
 
     def _get_stored_alerts(self):
-        logging.info("Getting stored alerts")
+        logger.info("Getting stored alerts")
 
         results = self.fb.get('', self.database)
 
         if results is None:
-            logging.info("There are no stored alerts")
+            logger.info("There are no stored alerts")
             return pd.DataFrame([], columns=['type', 'bound', 'direction', 'id', 'active'])
 
         data = []
@@ -47,14 +47,14 @@ class Alerts(object):
         df = pd.DataFrame(data)
         df = df.set_index('name')
 
-        logging.info("Stored alerts:\n %s", df)
+        logger.info("Stored alerts:\n %s", df)
         return df
 
     def _trigger_alert(self, trigger, current):
-        logging.info("Triggering an alert!")
+        logger.info("Triggering an alert!")
 
         if self.triggered_func is None:
-            logging.debug("triggered_func is None...")
+            logger.debug("triggered_func is None...")
             return
 
         self.triggered_func(trigger.id,
@@ -64,7 +64,7 @@ class Alerts(object):
                             current)
 
     def _trigger_alerts(self):
-        logging.info("Checking if any alerts triggered")
+        logger.info("Checking if any alerts triggered")
         data = self._get_latest_data()
         df = self.alerts
 
@@ -72,15 +72,15 @@ class Alerts(object):
             series = self.alerts.ix[i]
 
             if series.direction(data[series.type], series.bound):
-                logging.info("Condition has been met!")
+                logger.info("Condition has been met!")
 
                 if series.active:
-                    logging.info("Not triggering alert because it was already triggered")
+                    logger.info("Not triggering alert because it was already triggered")
                 else:
                     self.alerts.loc[series.name, 'active'] = True
                     self._trigger_alert(series, data)
             else:
-                logging.info("Turning off active")
+                logger.info("Turning off active")
                 self.alerts.loc[series.name, 'active'] = False
 
     def _find_alert(self, id, type, bound, direction):
@@ -102,12 +102,12 @@ class Alerts(object):
         threading.Timer(60, self.run).start()
 
     def add_alert(self, id, type, bound, direction):
-        logging.info("Adding new alert: %s %s %s %s", id, type, bound, direction)
+        logger.info("Adding new alert: %s %s %s %s", id, type, bound, direction)
 
         bound = float(bound)
         alert = self._find_alert(id, type, bound, direction)
         if len(alert) > 0:
-            logging.info("Alert is already contained in database")
+            logger.info("Alert is already contained in database")
             return
 
         # Store alert in database
@@ -121,15 +121,15 @@ class Alerts(object):
                       name=result['name'])
         self.alerts = self.alerts.append(s)
 
-        logging.info("New alerts:\n %s", self.alerts)
+        logger.info("New alerts:\n %s", self.alerts)
 
     def delete_alert(self, id, type, bound, direction):
-        logging.info("Deleting alert: %s %s %s %s", id, type, bound, direction)
+        logger.info("Deleting alert: %s %s %s %s", id, type, bound, direction)
 
         bound = float(bound)
         alert = self._find_alert(id, type, bound, direction)
         if len(alert) == 0:
-            logging.info("There is no alert to delete")
+            logger.info("There is no alert to delete")
             return
 
         # Remove alert from database
@@ -138,10 +138,10 @@ class Alerts(object):
         # Remove alert locally
         self.alerts = self.alerts.drop([alert.index[0]])
 
-        logging.info("New alerts:\n %s", self.alerts)
+        logger.info("New alerts:\n %s", self.alerts)
 
     def clear_alerts(self):
-        logging.info("Clearing alerts")
+        logger.info("Clearing alerts")
 
         # Clear database
         self.fb.delete(self.database, None)
