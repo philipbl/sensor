@@ -7,6 +7,9 @@ import numpy as np
 import pandas as pd
 import dateutil.parser
 import time
+import threading
+import logging
+from send_email import send_email
 
 
 def parse_time(time):
@@ -75,18 +78,41 @@ def format_response(data, x_func, y_func):
     return new_data
 
 
-def triggered_alerts(id, type_, bound, direction, data):
-    print(id, type_, bound, direction, data)
+def triggered_alerts(id_, type_, bound, direction, data):
+    if "@" not in id_:
+        print("ERROR: id_ is not an email address.")
+
+    to = id_
+    subject = "Alert: {} is {} {}{}".format(type_,
+                                            "above" if direction == "gt" else "below",
+                                            bound,
+                                            "°" if type_ == "temperature" else "%")
+
+    message = "At {time}, the {type} was {direction} " \
+              "{bound}{unit}!".format(time= datetime.fromtimestamp(data['date'] / 1000).strftime('%H:%M %p'),
+                                      type=type_,
+                                      direction="above" if direction == "gt" else "below",
+                                      bound=bound,
+                                      unit="°" if type_ == "temperature" else "%")
+
+    send_email(to=to, subject=subject, message=message)
 
 
-
-# Set up alerts
-alerts = Alerts(triggered_alerts)
+logger = logging.getLogger('alerts')
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+logger.addHandler(ch)
 
 # Set up web server
 app = Flask(__name__)
 CORS(app)
 data, get_more_data = get_data()
+
+# Set up alerts
+alerts = Alerts(triggered_alerts)
+
+
 
 @app.route("/sensor/status")
 def status():
@@ -185,4 +211,5 @@ def setup_alerts():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    threading.Thread(target=alerts.run).start()
+    app.run()
