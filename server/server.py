@@ -182,12 +182,15 @@ def average(time_scale):
     return jsonify(**new_response)
 
 
-@app.route("/sensor/alert", methods=['PUT', 'DELETE'])
+@app.route("/sensor/alert", methods=['GET', 'PUT', 'DELETE'])
 def setup_alerts():
     email = request.args.get('email')
     type_ = request.args.get('type')
     bound = request.args.get('bound')
     direction = request.args.get('direction')
+
+    if request.method == 'GET':
+        return jsonify(**alerts.get_alerts())
 
     if email is None or type_ is None or bound is None or direction is None:
         return "Error: email, type, bound, and direction must be given"
@@ -212,4 +215,4 @@ def setup_alerts():
 
 if __name__ == '__main__':
     threading.Thread(target=alerts.run).start()
-    app.run()
+    app.run(debug=True)

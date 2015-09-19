@@ -101,6 +101,14 @@ class Alerts(object):
         alerts = self._trigger_alerts()
         threading.Timer(60, self.run).start()
 
+    def get_alerts(self):
+        data = self.alerts.to_dict('records')
+
+        for d in data:
+            d['direction'] = 'gt' if d['direction'] == operator.gt else 'lt'
+
+        return {'alerts': data}
+
     def add_alert(self, id, type, bound, direction):
         logger.info("Adding new alert: %s %s %s %s", id, type, bound, direction)
 

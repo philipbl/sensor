@@ -141,3 +141,30 @@ def test_clear(fb):
 
     alerts.clear_alerts()
     assert len(alerts.alerts) == 0
+
+
+def test_alerts(fb):
+    id = "test@test"
+    type = "temperature"
+    bound = 80
+    direction = "gt"
+
+    # Delete everything
+    fb.delete(dummy_database, None)
+
+    alerts = Alerts(lambda x: x, dummy_database)
+    assert len(alerts.alerts) == 0
+
+    alerts.add_alert(id, type, bound, direction)
+    assert len(alerts.alerts) == 1
+    assert alerts.alerts.ix[0].id == id
+    assert alerts.alerts.ix[0].type == type
+    assert alerts.alerts.ix[0].bound == bound
+    assert alerts.alerts.ix[0].direction == operator.gt if direction == 'gt' else operator.lt
+
+    a = alerts.get_alerts()
+    assert(len(a['alerts']) == 1)
+    assert a['alerts'][0]['id'] == id
+    assert a['alerts'][0]['type'] == type
+    assert a['alerts'][0]['bound'] == bound
+    assert a['alerts'][0]['direction'] == direction
