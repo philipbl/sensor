@@ -193,23 +193,23 @@ def setup_alerts():
         return jsonify(**alerts.get_alerts())
 
     if email is None or type_ is None or bound is None or direction is None:
-        return "Error: email, type, bound, and direction must be given"
+        return jsonify({"error": "Error: email, type, bound, and direction must be given"})
 
     if direction != 'gt' and direction != 'lt':
-        return "Error: direction can only be \"gt\" or \"lt\""
+        return jsonify({"error": "Error: direction can only be \"gt\" or \"lt\""})
 
     try:
         bound = float(bound)
     except:
-        return "Error: bound must be a float"
+        return jsonify({"error": "Error: bound must be a float"})
 
     if request.method == 'PUT':
         alerts.add_alert(email, type_, bound, direction)
+        return jsonify({"success": "Alert was added."})
+
     elif request.method == 'DELETE':
         alerts.delete_alert(email, type_, bound, direction)
-
-    return "done"
-
+        return jsonify({"success": "Alert was deleted."})
 
 
 
