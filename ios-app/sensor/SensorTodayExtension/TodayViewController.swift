@@ -8,11 +8,14 @@
 
 import UIKit
 import NotificationCenter
+import SensorFramework
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var currentHumidity: UILabel!
+    
+    var sensorData : SensorData = SensorData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +52,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
         }
         
-        runNetworkCommand(sensorData.getSummary, success: update, failure: { print($0) })
+        sensorData.getSummary(update, errorHandler: { print($0) })
     }
     
 }
