@@ -38,23 +38,23 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hs1-WG-69r">
-                                <rect key="frame" x="16" y="0.0" width="288" height="30"/>
+                                <rect key="frame" x="16" y="0.0" width="288" height="103"/>
                                 <connections>
                                     <action selector="launchApp:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="uix-2Q-So1"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: XX minutes ago" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="cvf-3p-u53">
-                                <rect key="frame" x="16" y="64" width="153.5" height="31"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated XX minutes ago" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="cvf-3p-u53">
+                                <rect key="frame" x="16" y="64" width="151.5" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="LKC-aR-d4T" firstAttribute="height" secondItem="GcN-lo-r42" secondAttribute="height" id="2Lf-RY-6jm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="U1B-6W-D0m" secondAttribute="trailing" id="4aj-Qe-aw4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Hs1-WG-69r" secondAttribute="trailing" id="86k-Rb-QEd"/>
                             <constraint firstItem="LKC-aR-d4T" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="9M6-Eb-WRk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Hs1-WG-69r" secondAttribute="trailing" id="Cg4-TY-4m7"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="FtR-Oe-Ruq"/>
                             <constraint firstItem="Hs1-WG-69r" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="P2V-Zd-8XX"/>
                             <constraint firstItem="54C-gX-71t" firstAttribute="width" secondItem="U1B-6W-D0m" secondAttribute="width" id="Qo8-vz-ojA"/>
@@ -68,8 +68,9 @@
                             <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="iie-Hm-VW1"/>
                             <constraint firstItem="54C-gX-71t" firstAttribute="centerY" secondItem="LKC-aR-d4T" secondAttribute="centerY" id="jZY-QB-VmW"/>
                             <constraint firstItem="54C-gX-71t" firstAttribute="leading" secondItem="GcN-lo-r42" secondAttribute="trailing" constant="1" id="jrF-23-vl2"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="Hs1-WG-69r" secondAttribute="bottom" id="mT1-jz-99r"/>
                             <constraint firstItem="cvf-3p-u53" firstAttribute="leading" secondItem="GcN-lo-r42" secondAttribute="leading" id="sgM-18-YaZ"/>
-                            <constraint firstItem="cvf-3p-u53" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="8" symbolic="YES" id="smA-bN-WwR"/>
+                            <constraint firstItem="cvf-3p-u53" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="8" symbolic="YES" id="uFF-9s-1Bx"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

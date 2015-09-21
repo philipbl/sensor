@@ -41,7 +41,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetMarginInsetsForProposedMarginInsets(var defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
-        defaultMarginInsets.bottom = 1.0
+        defaultMarginInsets.bottom = 10.0
         return defaultMarginInsets
     }
     
