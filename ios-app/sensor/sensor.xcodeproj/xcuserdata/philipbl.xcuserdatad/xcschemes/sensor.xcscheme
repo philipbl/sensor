@@ -52,6 +52,16 @@
                ReferencedContainer = "container:sensor.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CC402E5E1BB096DD0097A156"
+               BuildableName = "SensorFrameworkTests.xctest"
+               BlueprintName = "SensorFrameworkTests"
+               ReferencedContainer = "container:sensor.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
