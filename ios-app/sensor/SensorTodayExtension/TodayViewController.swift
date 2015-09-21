@@ -10,10 +10,14 @@ import UIKit
 import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
-        
+    
+    @IBOutlet weak var currentTemperature: UILabel!
+    @IBOutlet weak var currentHumidity: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view from its nib.
+        
+        update()
     }
     
     override func didReceiveMemoryWarning() {
@@ -27,8 +31,29 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
+        
+        // TODO: Look into this
 
         completionHandler(NCUpdateResult.NewData)
     }
     
+    private func update() {
+        func update(tempData: [String: Double], humData: [String: Double]) -> () {
+            let tCurrent = tempData["current"]!
+            let hCurrent = humData["current"]!
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.currentTemperature.text = tCurrent.formatString + "°"
+                
+                self.currentHumidity.text = hCurrent.formatString + "%"
+            }
+        }
+        
+        runNetworkCommand(sensorData.getSummary, success: update, failure: { print($0) })
+    }
+    
+}
+
+extension Double {
+    var formatString: String { return String(format: "%.01f", self) }
 }
