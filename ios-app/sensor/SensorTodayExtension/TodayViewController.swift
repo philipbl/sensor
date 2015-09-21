@@ -40,6 +40,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.NewData)
     }
     
+    func widgetMarginInsetsForProposedMarginInsets(var defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
+        defaultMarginInsets.bottom = 1.0
+        return defaultMarginInsets
+    }
+    
     @IBAction func launchApp(sender: AnyObject) {
         extensionContext?.openURL(NSURL(string: "sensor://")!, completionHandler: nil)
     }
