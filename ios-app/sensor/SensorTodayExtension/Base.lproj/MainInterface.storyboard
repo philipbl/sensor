@@ -82,6 +82,7 @@
                     <connections>
                         <outlet property="currentHumidity" destination="LKC-aR-d4T" id="zhx-p7-pLY"/>
                         <outlet property="currentTemperature" destination="GcN-lo-r42" id="Qof-sd-x4z"/>
+                        <outlet property="updateLabel" destination="cvf-3p-u53" id="nln-PP-Qgf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>

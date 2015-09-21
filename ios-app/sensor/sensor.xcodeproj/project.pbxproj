@@ -883,6 +883,7 @@
 				CC402E4E1BB090330097A156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC402E6D1BB096DD0097A156 /* Build configuration list for PBXNativeTarget "SensorFramework" */ = {
 			isa = XCConfigurationList;
@@ -891,6 +892,7 @@
 				CC402E6F1BB096DD0097A156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC402E701BB096DD0097A156 /* Build configuration list for PBXNativeTarget "SensorFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -899,6 +901,7 @@
 				CC402E721BB096DD0097A156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC4ED24B1B978E4900C00568 /* Build configuration list for PBXProject "sensor" */ = {
 			isa = XCConfigurationList;
