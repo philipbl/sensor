@@ -37,14 +37,24 @@
                                 <rect key="frame" x="265.5" y="8" width="38.5" height="21"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hs1-WG-69r">
+                                <rect key="frame" x="16" y="0.0" width="288" height="37"/>
+                                <connections>
+                                    <action selector="launchApp:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="uix-2Q-So1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="LKC-aR-d4T" firstAttribute="height" secondItem="GcN-lo-r42" secondAttribute="height" id="2Lf-RY-6jm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="U1B-6W-D0m" secondAttribute="trailing" id="4aj-Qe-aw4"/>
                             <constraint firstItem="LKC-aR-d4T" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="9M6-Eb-WRk"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="LKC-aR-d4T" secondAttribute="bottom" constant="8" symbolic="YES" id="A7b-Oh-PyE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Hs1-WG-69r" secondAttribute="trailing" id="Cg4-TY-4m7"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="FtR-Oe-Ruq"/>
+                            <constraint firstItem="Hs1-WG-69r" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="P2V-Zd-8XX"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="Hs1-WG-69r" secondAttribute="bottom" id="Qil-Z4-ahC"/>
                             <constraint firstItem="54C-gX-71t" firstAttribute="width" secondItem="U1B-6W-D0m" secondAttribute="width" id="Qo8-vz-ojA"/>
+                            <constraint firstItem="Hs1-WG-69r" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="Quw-0X-3WG"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="8" symbolic="YES" id="XeR-gb-BZF"/>
                             <constraint firstItem="LKC-aR-d4T" firstAttribute="leading" secondItem="54C-gX-71t" secondAttribute="trailing" constant="8" symbolic="YES" id="ZZF-If-3bw"/>
                             <constraint firstItem="54C-gX-71t" firstAttribute="height" secondItem="LKC-aR-d4T" secondAttribute="height" id="Zpf-1r-D00"/>

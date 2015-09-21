@@ -40,6 +40,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.NewData)
     }
     
+    @IBAction func launchApp(sender: AnyObject) {
+        extensionContext?.openURL(NSURL(string: "sensor://")!, completionHandler: nil)
+    }
+    
     private func update() {
         func update(tempData: [String: Double], humData: [String: Double]) -> () {
             let tCurrent = tempData["current"]!
