@@ -2,10 +2,14 @@ from flask import Flask, jsonify, request
 from flask.ext.cors import CORS
 from datetime import datetime, timedelta
 from firebase import firebase
+from alerts import Alerts
 import numpy as np
 import pandas as pd
 import dateutil.parser
 import time
+import threading
+import logging
+from send_email import send_email
 
 
 def parse_time(time):
@@ -74,9 +78,40 @@ def format_response(data, x_func, y_func):
     return new_data
 
 
+def triggered_alerts(id_, type_, bound, direction, data):
+    if "@" not in id_:
+        print("ERROR: id_ is not an email address.")
+
+    to = id_
+    subject = "Alert: {} is {} {}{}".format(type_,
+                                            "above" if direction == "gt" else "below",
+                                            bound,
+                                            "°" if type_ == "temperature" else "%")
+
+    message = "At {time}, the {type} was {direction} " \
+              "{bound}{unit}!".format(time= datetime.fromtimestamp(data['date'] / 1000).strftime('%I:%M %p'),
+                                      type=type_,
+                                      direction="above" if direction == "gt" else "below",
+                                      bound=bound,
+                                      unit="°" if type_ == "temperature" else "%")
+
+    send_email(to=to, subject=subject, message=message)
+
+
+logger = logging.getLogger('alerts')
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+logger.addHandler(ch)
+
+# Set up web server
 app = Flask(__name__)
 CORS(app)
 data, get_more_data = get_data()
+
+# Set up alerts
+alerts = Alerts(triggered_alerts)
+
 
 
 @app.route("/sensor/status")
@@ -147,5 +182,37 @@ def average(time_scale):
     return jsonify(**new_response)
 
 
+@app.route("/sensor/alert", methods=['GET', 'PUT', 'DELETE'])
+def setup_alerts():
+    email = request.args.get('email')
+    type_ = request.args.get('type')
+    bound = request.args.get('bound')
+    direction = request.args.get('direction')
+
+    if request.method == 'GET':
+        return jsonify(**alerts.get_alerts())
+
+    if email is None or type_ is None or bound is None or direction is None:
+        return jsonify({"error": "Error: email, type, bound, and direction must be given"})
+
+    if direction != 'gt' and direction != 'lt':
+        return jsonify({"error": "Error: direction can only be \"gt\" or \"lt\""})
+
+    try:
+        bound = float(bound)
+    except:
+        return jsonify({"error": "Error: bound must be a float"})
+
+    if request.method == 'PUT':
+        alerts.add_alert(email, type_, bound, direction)
+        return jsonify({"success": "Alert was added."})
+
+    elif request.method == 'DELETE':
+        alerts.delete_alert(email, type_, bound, direction)
+        return jsonify({"success": "Alert was deleted."})
+
+
+
 if __name__ == '__main__':
+    threading.Thread(target=alerts.run).start()
     app.run(debug=True)
