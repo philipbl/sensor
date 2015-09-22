@@ -89,7 +89,7 @@ def triggered_alerts(id_, type_, bound, direction, data):
                                             "°" if type_ == "temperature" else "%")
 
     message = "At {time}, the {type} was {direction} " \
-              "{bound}{unit}!".format(time= datetime.fromtimestamp(data['date'] / 1000).strftime('%H:%M %p'),
+              "{bound}{unit}!".format(time= datetime.fromtimestamp(data['date'] / 1000).strftime('%I:%M %p'),
                                       type=type_,
                                       direction="above" if direction == "gt" else "below",
                                       bound=bound,
