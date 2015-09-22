@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.swift
 //  sensor
 //
@@ -8,9 +8,13 @@
 
 import UIKit
 import Charts
+import SensorFramework
 
 class ViewController: UIViewController {
     static var setVisibleCalls = 0
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var updateLabel: UILabel!
     
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var maxTemperature: UILabel!
@@ -20,30 +24,67 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxHumidity: UILabel!
     @IBOutlet weak var minHumidity: UILabel!
 
-    @IBOutlet weak var lineGraphView: LineChartView!
-    @IBOutlet weak var lineGraphView2: LineChartView!
+    @IBOutlet weak var graphPicker: UISegmentedControl!
+    @IBOutlet weak var graphView: LineChartView!
     
+    var sensorData : SensorData = SensorData()
+    
+    var GlobalBackgroundQueue: dispatch_queue_t {
+        return dispatch_get_global_queue(Int(QOS_CLASS_BACKGROUND.rawValue), 0)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        // TODO: Only update if it is in the view
-        updateSummaryView()
-        updateAverageDayView()
-        updateAverageWeekView()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        makeStatusView()
+        makeSummaryView()
+        graphPickerChanged()
+        statusUpdater()
     }
     
-    private func updateStatusView() {
-        // Update some label somewhere
+    @IBAction func graphPickerChanged() {
+        switch graphPicker.selectedSegmentIndex {
+        case 0:
+            makeTwelveHourView()
+        case 1:
+            makeTwentyFourHourView()
+        case 2:
+            makeWeekView()
+        case 3:
+            makeMonthView()
+        default:
+            break
+        }
     }
     
-    private func updateSummaryView() {
+    private func statusUpdater() {
+        let delayInSeconds = 60.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delay, GlobalBackgroundQueue) {
+            self.makeStatusView()
+            self.makeSummaryView()
+            
+            self.statusUpdater()
+        }
+    }
+    
+    private func makeStatusView() {
+        func update(date: NSDate) -> () {
+            
+            let formatter = NSDateFormatter()
+            formatter.timeStyle = .ShortStyle
+            let dateString = formatter.stringFromDate(date)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.updateLabel.text = "Updated: " + dateString
+            }
+        }
+        
+        runNetworkCommand(sensorData.getStatus, success: update, failure: { print($0) })
+    }
+    
+    private func makeSummaryView() {
         func update(tempData: [String: Double], humData: [String: Double]) -> () {
             let tCurrent = tempData["current"]!
             let tMax = tempData["max"]!
@@ -62,51 +103,63 @@ class ViewController: UIViewController {
                 self.maxHumidity.text = hMax.formatString + "%"
                 self.minHumidity.text = hMin.formatString + "%"
             }
-            
-            ViewController.networkActivity(false)
         }
         
-        ViewController.networkActivity(true)
-        getSummary(update) {
-            ViewController.networkActivity(false)
-            println($0)
+        runNetworkCommand(sensorData.getSummary, success: update, failure: { print($0) })
+    }
+    
+    private func makeHourView() {
+        runNetworkCommand(sensorData.getHourData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeTwelveHourView() {
+        runNetworkCommand(sensorData.getTwelveHourData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeTwentyFourHourView() {
+        runNetworkCommand(sensorData.getTwentyFourHourData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeWeekView() {
+        runNetworkCommand(sensorData.getWeekData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeMonthView() {
+        runNetworkCommand(sensorData.getMonthData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeAverageDayView() {
+        runNetworkCommand(sensorData.getAverageDayData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func makeAverageWeekView() {
+        runNetworkCommand(sensorData.getAverageWeekData, success: updateGraph, failure: { print($0) })
+    }
+    
+    private func updateGraph(data: [String: [AnyObject]]) {
+        dispatch_async(dispatch_get_main_queue()) {
+            createGraph(self.graphView,
+                humidityData: data["humidity"] as! [Double],
+                temperatureData: data["temperature"] as! [Double],
+                labels: data["labels"] as! [NSDate])
         }
     }
     
-    private func updateAverageDayView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(lineGraphView,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [String])
-            
+    private func runNetworkCommand<S, T>(action: (S -> (), T -> ()) -> (), success: S -> (), failure: T -> ()) {
+        func new_success(param: S) -> () {
             ViewController.networkActivity(false)
+            success(param)
+        }
+        
+        func new_failure(param: T) -> () {
+            ViewController.networkActivity(false)
+            failure(param)
         }
         
         ViewController.networkActivity(true)
-        getAverageDayData(update) {
-            ViewController.networkActivity(false)
-            println($0)
-        }
+        action(new_success, new_failure)
     }
-    
-    private func updateAverageWeekView() {
-        func update(data: [String: [AnyObject]]) -> () {
-            createGraph(lineGraphView2,
-                data["humidity"] as! [Double],
-                data["temperature"] as! [Double],
-                data["labels"] as! [String])
-            
-            ViewController.networkActivity(false)
-        }
-        
-        ViewController.networkActivity(true)
-        getAverageWeekData(update) {
-            ViewController.networkActivity(false)
-            println($0)
-        }
-    }
-    
+
     static func networkActivity(visible: Bool) {
         if visible {
             setVisibleCalls++
