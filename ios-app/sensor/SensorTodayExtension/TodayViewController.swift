@@ -42,16 +42,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        getTime({
-            self.userDefaults.setObject($0, forKey: self.updateTimeKey)
-            self.displayTime($0)
-        })
-        
         getData({ temperature, humidity in
             self.userDefaults.setDouble(temperature, forKey: self.temperatureKey)
             self.userDefaults.setDouble(humidity, forKey: self.humidityKey)
             
             self.displayData(temperature, humidity: humidity)
+            self.displayTime(NSDate())
+            
             completionHandler(NCUpdateResult.NewData)
         })
     }
@@ -64,29 +61,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     private func displayTime(date: NSDate) {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.updateLabel.text = "Updated \(self.getTimeDiffLabel(NSDate(), oldDate: date)) ago"
-        }
-    }
-    
-    private func getTime(completionHandler: (NSDate) -> ()) {
-        let lastUpdated = userDefaults.objectForKey(updateTimeKey) as? NSDate
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        let dateString = formatter.stringFromDate(date)
         
-        if let lastUpdated = lastUpdated {
-            let diff = NSDate().timeIntervalSinceDate(lastUpdated)
-            
-            if diff < 60 {
-                print("getting time from storage")
-                completionHandler(lastUpdated)
-            }
-            else {
-                print("getting time from network")
-                updateTime(completionHandler)
-            }
-        }
-        else {
-            print("getting time from network")
-            updateTime(completionHandler)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.updateLabel.text = "Updated " + dateString
         }
     }
     
@@ -116,46 +96,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     private func updateData(completionHandler: (Double, Double) -> ()) {
         sensorData.getSummary({ completionHandler($0["current"]!, $1["current"]!)} , errorHandler: { print($0) })
-    }
-    
-    private func updateTime(completionHandler: (NSDate) -> ()) {
-        sensorData.getStatus(completionHandler, errorHandler: { print($0) })
-    }
-    
-    private func getTimeDiffLabel(newDate: NSDate, oldDate: NSDate?) -> String {
-        
-        if let oldDate = oldDate {
-            let diff = newDate.timeIntervalSinceDate(oldDate)
-            
-            if round(diff) == 1 {
-                return "1 second"
-            }
-            
-            else if diff < 60 {
-                return "\(Int(round(diff))) seconds"
-            }
-            
-            let minDiff = diff / 60
-            
-            if round(minDiff) == 1 {
-                return "1 minute"
-            }
-            else if minDiff < 60 {
-                return "\(Int(round(minDiff))) minutes"
-            }
-                
-            let hourDiff = minDiff / 60
-            
-            if round(hourDiff) == 60 {
-                return "1 hour"
-            }
-            else {
-                return "\(Int(round(hourDiff))) hours"
-            }
-        }
-        else {
-            return "moments"
-        }
     }
 }
 
