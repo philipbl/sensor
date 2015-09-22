@@ -8,13 +8,17 @@
 
 import Foundation
 
-class SensorData {
+public class SensorData {
 //    let baseURL = "http://localhost:5000/"
     let baseURL = "https://still-sands-8003.herokuapp.com/"
     
     var cachedData = [String:JSON]()
+    
+    public init() {
+        
+    }
 
-    func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {
+    public func getStatus(successHandler: (NSDate) -> (), errorHandler: (String) -> ()) {
         func success(data: JSON) {
             let lastReading = data["last_reading"].doubleValue
             let date = convertDate(lastReading)
@@ -25,7 +29,7 @@ class SensorData {
         download("sensor/status", successHandler: success, errorHandler: { errorHandler($0) }, cache: false)
     }
 
-    func getSummary(successHandler: ([String: Double], [String: Double]) -> (), errorHandler: (String) -> ()) {
+    public func getSummary(successHandler: ([String: Double], [String: Double]) -> (), errorHandler: (String) -> ()) {
         func convertData(data: JSON) -> [String: Double] {
             var newData = [String: Double]()
             
@@ -51,7 +55,7 @@ class SensorData {
         )
     }
     
-    func getHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         download(
             "sensor/stats/minutes?duration=60",
             successHandler: { successHandler(self.convertDictData($0)) },
@@ -59,7 +63,7 @@ class SensorData {
         )
     }
     
-    func getTwelveHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getTwelveHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         download(
             "sensor/stats/minutes?duration=720&interval=15",
             successHandler: { successHandler(self.convertDictData($0)) },
@@ -67,7 +71,7 @@ class SensorData {
         )
     }
     
-    func getTwentyFourHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getTwentyFourHourData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         download(
             "sensor/stats/minutes?duration=1440&interval=30",
             successHandler: { successHandler(self.convertDictData($0)) },
@@ -75,7 +79,7 @@ class SensorData {
         )
     }
     
-    func getWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         download(
             "sensor/stats/hours?duration=168&interval=3",
             successHandler: { successHandler(self.convertDictData($0)) },
@@ -83,7 +87,7 @@ class SensorData {
         )
     }
     
-    func getMonthData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getMonthData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         download(
             "sensor/stats/hours?duration=720&interval=12",
             successHandler: { successHandler(self.convertDictData($0)) },
@@ -91,7 +95,7 @@ class SensorData {
         )
     }
     
-    func getAverageWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getAverageWeekData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         func success(data: JSON) {
             let newData = ["temperature": convertArrayData(data["temperature"]) { $0.doubleValue },
                 "humidity": convertArrayData(data["humidity"]) { $0.doubleValue },
@@ -103,7 +107,7 @@ class SensorData {
         download("sensor/average/week", successHandler: success, errorHandler: { errorHandler($0) })
     }
     
-    func getAverageDayData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
+    public func getAverageDayData(successHandler: ([String: [AnyObject]]) -> (), errorHandler: (String) -> ()) {
         func success(data: JSON) {
             let newData = ["temperature": convertArrayData(data["temperature"]) { $0.doubleValue },
                 "humidity": convertArrayData(data["humidity"]) { $0.doubleValue },

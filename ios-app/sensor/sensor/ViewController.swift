@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import SensorFramework
 
 class ViewController: UIViewController {
     static var setVisibleCalls = 0
