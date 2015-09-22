@@ -23,13 +23,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     let sensorData : SensorData = SensorData()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+        self.updateWidget()
     }
     
     func widgetMarginInsetsForProposedMarginInsets(var defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
@@ -42,22 +40,34 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        getData({ temperature, humidity in
+        print("widgetPerformUpdateWithCompletionHandler")
+        if self.updateWidget() {
+            completionHandler(NCUpdateResult.NewData)
+        }
+        else {
+            completionHandler(NCUpdateResult.NoData)
+        }
+    }
+    
+    private func updateWidget() -> Bool {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.updateLabel.text = "Loading..."
+        })
+        
+        return getData({ temperature, humidity, updated in
             self.userDefaults.setDouble(temperature, forKey: self.temperatureKey)
             self.userDefaults.setDouble(humidity, forKey: self.humidityKey)
             
             self.displayData(temperature, humidity: humidity)
-            self.displayTime(NSDate())
-            
-            completionHandler(NCUpdateResult.NewData)
+            self.displayTime(updated)
         })
     }
     
     private func displayData(temperature: Double, humidity: Double) {
-        dispatch_async(dispatch_get_main_queue()) {
+        dispatch_async(dispatch_get_main_queue(), {
             self.currentTemperature.text = temperature.formatString + "°"
             self.currentHumidity.text = humidity.formatString + "%"
-        }
+        })
     }
     
     private func displayTime(date: NSDate) {
@@ -65,37 +75,44 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         formatter.timeStyle = .ShortStyle
         let dateString = formatter.stringFromDate(date)
         
-        dispatch_async(dispatch_get_main_queue()) {
+        dispatch_async(dispatch_get_main_queue(), {
             self.updateLabel.text = "Updated " + dateString
-        }
+        })
     }
     
-    private func getData(completionHandler: (Double, Double) -> ()) {
+    private func getData(completionHandler: (Double, Double, NSDate) -> ()) -> Bool {
         let lastUpdated = userDefaults.objectForKey(updateTimeKey) as? NSDate
         let temperature = userDefaults.doubleForKey(temperatureKey)
         let humidity = userDefaults.doubleForKey(humidityKey)
         
-        
         if let lastUpdated = lastUpdated {
             let diff = NSDate().timeIntervalSinceDate(lastUpdated)
             
+            print(diff)
+            
             if diff < 60 {
                 print("getting data from storage")
-                completionHandler(temperature, humidity)
+                completionHandler(temperature, humidity, lastUpdated)
+                return false
             }
             else {
                 print("getting data from network")
                 updateData(completionHandler)
+                return true
             }
         }
         else {
             print("getting data from network")
             updateData(completionHandler)
+            return true
         }
     }
     
-    private func updateData(completionHandler: (Double, Double) -> ()) {
-        sensorData.getSummary({ completionHandler($0["current"]!, $1["current"]!)} , errorHandler: { print($0) })
+    private func updateData(completionHandler: (Double, Double, NSDate) -> ()) {
+        let now = NSDate()
+        self.userDefaults.setObject(now, forKey: self.updateTimeKey)
+        
+        sensorData.getSummary({ completionHandler($0["current"]!, $1["current"]!, now) } , errorHandler: { print($0) })
     }
 }
 
