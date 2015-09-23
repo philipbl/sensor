@@ -79,8 +79,7 @@ class Alerts(object):
                 else:
                     self.alerts.loc[series.name, 'active'] = True
                     self._trigger_alert(series, data)
-            else:
-                logger.info("Turning off active")
+            elif series.active:
                 self.alerts.loc[series.name, 'active'] = False
 
     def _find_alert(self, id, type, bound, direction):
