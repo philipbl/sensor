@@ -111,7 +111,7 @@ data, get_more_data = get_data()
 
 # Set up alerts
 alerts = Alerts(triggered_alerts)
-
+threading.Thread(target=alerts.run).start()
 
 
 @app.route("/sensor/status")
@@ -214,5 +214,4 @@ def setup_alerts():
 
 
 if __name__ == '__main__':
-    threading.Thread(target=alerts.run).start()
-    app.run(debug=True)
+    app.run()
