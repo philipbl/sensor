@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 
+import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 def send_email(to, subject, message, html=False):
-    gmail_user = "philiplundrigan@gmail.com"
-    gmail_pwd = "tamtepzumnexnknx"
+    gmail_user = os.environ.get('MAIL_USERNAME')
+    gmail_pwd = os.environ.get('MAIL_PASSWORD')
+
+    if gmail_user is None or gmail_pwd is None:
+        raise Exception("Must set MAIL_USERNAME and MAIL_PASSWORD environment variables.")
 
     msg = MIMEMultipart('alternative')
     msg['To'] = to
