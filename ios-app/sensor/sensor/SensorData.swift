@@ -9,8 +9,7 @@
 import Foundation
 
 public class SensorData {
-//    let baseURL = "http://localhost:5000/"
-    let baseURL = "https://still-sands-8003.herokuapp.com/"
+    let baseURL = "http://temperature.app.lundrigan.org/"
     
     var cachedData = [String:JSON]()
     
