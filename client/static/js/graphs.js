@@ -3,7 +3,7 @@ Chart.defaults.global.responsive = true;
 
 temperature_color = "#F44336";
 humidity_color = "#2196F3";
-base_url = "https://still-sands-8003.herokuapp.com";
+base_url = "http://temperature.app.lundrigan.org";
 loader = '<div class="loader"> \
     <div class="sk-circle"> \
       <div class="sk-circle1 sk-child"></div> \

@@ -10,6 +10,10 @@ import Foundation
 import Charts
 
 
+func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [Double], labels: [NSDate]) {
+    createGraph(view, humidityData: humidityData, temperatureData: temperatureData, labels: datesToLabels(labels))
+}
+
 func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [Double], labels: [String]) {
     func configureDataSet(dataSet: LineChartDataSet, color: UIColor) {
         dataSet.drawCircleHoleEnabled = false;
@@ -21,11 +25,11 @@ func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [
     }
     
     // Convert from Double to ChartDataEntry
-    let humData = map(enumerate(humidityData)) { (index, value) in
+    let humData = humidityData.enumerate().map { (index, value) in
         return ChartDataEntry(value: value, xIndex: index)
     }
     
-    let tempData = map(enumerate(temperatureData)) { (index, value) in
+    let tempData = temperatureData.enumerate().map { (index, value) in
         return ChartDataEntry(value: value, xIndex: index)
     }
     
@@ -34,8 +38,8 @@ func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [
     let tempDataSet = LineChartDataSet(yVals: tempData, label: "Temperature")
     
     // Configure colors and other parameters
-    configureDataSet(humDataSet, UIColor(red: 3/255.0, green: 169/255.0, blue: 244/255.0, alpha: 1.0))
-    configureDataSet(tempDataSet, UIColor(red: 244/255.0, green: 67/255.0, blue: 54/255.0, alpha: 1.0))
+    configureDataSet(humDataSet, color: UIColor(red: 3/255.0, green: 169/255.0, blue: 244/255.0, alpha: 1.0))
+    configureDataSet(tempDataSet, color: UIColor(red: 244/255.0, green: 67/255.0, blue: 54/255.0, alpha: 1.0))
 
     let chartData = LineChartData(xVals: labels, dataSets: [humDataSet, tempDataSet])
     view.data = chartData
@@ -44,8 +48,27 @@ func createGraph(view: LineChartView, humidityData: [Double], temperatureData: [
     view.descriptionText = ""
     view.rightAxis.enabled = false
     view.legend.enabled = false
+    view.leftAxis.startAtZeroEnabled = false;
     view.xAxis.labelPosition = .Bottom
     view.xAxis.drawGridLinesEnabled = false;
-    view.animate(xAxisDuration: 0.5, yAxisDuration: 0)
     view.drawGridBackgroundEnabled = false;
+    
+    
+    // TODO: Adjust zoom everytime someone creates a new graph
+    // TODO: Initial yaxis starts at zero
+}
+
+func datesToLabels(dates: [NSDate]) -> [String] {
+    // If time difference is 23 hours or less, X:XX XM format
+    // If time spans a day, put day in 12:00 AM label
+    
+    // If time difference is 24 hours or more, use MMM DD format
+    
+    let formatter = NSDateFormatter()
+    formatter.timeStyle = .ShortStyle
+    
+
+    return dates.map({ date in
+        return formatter.stringFromDate(date)
+    })
 }
