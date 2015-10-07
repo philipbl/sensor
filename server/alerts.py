@@ -21,12 +21,16 @@ class Alerts(object):
         self.alerts = self._get_stored_alerts()
 
     def _get_latest_data(self):
-        results = self.fb.get('', 'measurements', params={'orderBy': '"date"', 'limitToLast': 1})
-        data = list(results.values())[0]
-        data['temperature'] = data['temperature'] * 9/5 + 32
+        try:
+            results = self.fb.get('', 'measurements', params={'orderBy': '"date"', 'limitToLast': 1})
+            data = list(results.values())[0]
+            data['temperature'] = data['temperature'] * 9/5 + 32
 
-        logger.info("Getting lastest data: %s", data)
-        return data
+            logger.info("Getting lastest data: %s", data)
+            return data
+        except:
+            logger.error("An error occurred while getting the latest data from firebase")
+            return None
 
     def _get_stored_alerts(self):
         logger.info("Getting stored alerts")
@@ -67,6 +71,10 @@ class Alerts(object):
         logger.info("Checking if any alerts triggered")
         data = self._get_latest_data()
         df = self.alerts
+
+        if data is None:
+            # Didn't receive data, so just stop
+            return
 
         for i in range(len(self.alerts)):
             series = self.alerts.ix[i]
